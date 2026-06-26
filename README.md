@@ -1,2 +1,111 @@
-# infra-standards
-Official infrastructure standards, architecture decisions, templates, and operational guidelines for servers, services, automation, and documentation.
+# Infrastructure Standards
+
+Repositorio oficial dos padroes tecnicos da infraestrutura.
+
+Este repositorio documenta normas, modelos e decisoes reutilizaveis em todas as
+VMs e projetos. Ele nao substitui a documentacao viva de cada VM.
+
+## Escopo
+
+Este repositorio deve conter:
+
+- padroes tecnicos da infraestrutura;
+- modelos de documentacao;
+- requisitos minimos para novas VMs;
+- fluxo operacional obrigatorio;
+- roadmaps de padronizacao.
+
+Este repositorio nao deve conter:
+
+- estado operacional detalhado de uma VM especifica;
+- senhas;
+- chaves privadas;
+- dumps de banco;
+- inventarios sensiveis nao saneados;
+- artefatos binarios de recuperacao.
+
+## Separacao de responsabilidades
+
+Padroes globais:
+
+```text
+infra-standards/
+ |
+ +--> standards/
+ +--> templates/
+ +--> roadmap/
+```
+
+Documentacao viva de cada VM:
+
+```text
+/opt/projects/HOST.md
+/opt/projects/.docs/
+```
+
+Regra:
+
+- O repositorio GitHub documenta padroes da infraestrutura.
+- Cada VM documenta apenas seu estado operacional real.
+- Se houver divergencia entre documentacao e ambiente real, prevalece o ambiente real e a documentacao deve ser atualizada.
+
+## Fluxo obrigatorio para intervencoes
+
+Toda intervencao deve seguir:
+
+```text
+Diagnostico
+Evidencias
+Plano
+Execucao
+Validacao
+Documentacao
+Relatorio
+```
+
+Nenhuma alteracao estrutural deve ser executada por hipotese.
+
+## Estrutura inicial
+
+```text
+README.md
+
+standards/
+  DOCUMENTATION_STANDARD.md
+  DOCKER_STANDARD.md
+  NFS_STANDARD.md
+  SSH_STANDARD.md
+  VM_STANDARD.md
+  SECURITY_STANDARD.md
+  BACKUP_STANDARD.md
+  NETWORK_STANDARD.md
+
+templates/
+  HOST_TEMPLATE.md
+  CHANGELOG_TEMPLATE.md
+  DECISIONS_TEMPLATE.md
+  INVENTORY_TEMPLATE.md
+  NETWORK_TEMPLATE.md
+  TODO_TEMPLATE.md
+
+roadmap/
+  ROADMAP.md
+```
+
+## Padrao de escrita
+
+- Usar somente Markdown.
+- Usar somente caracteres ASCII.
+- Escrever documentacao tecnica objetiva.
+- Evitar duplicacao de conteudo.
+- Atualizar a documentacao sempre que um padrao mudar.
+
+## Decisoes arquiteturais registradas
+
+- A infraestrutura mantem padroes proprios.
+- Cada VM possui apenas um export NFS.
+- Volumes Docker ficam em `/mnt/nfs/docker/volumes`.
+- Artefatos de Recuperacao ficam em `/mnt/nfs/artifacts`.
+- Backup para segundo disco e responsabilidade do OMV, nao das VMs.
+- SSH deve ser padronizado futuramente por `sshd_config.d`.
+- O arquivo principal `sshd_config` nao deve concentrar customizacoes futuras.
