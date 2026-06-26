@@ -23,13 +23,8 @@ Toda VM que usa NFS deve montar em:
 Estrutura:
 
 ```text
-/mnt/nfs
- |
- +-- docker
- |   |
- |   +-- volumes
- |
- +-- artifacts
+/mnt/nfs > docker > volumes
+/mnt/nfs > artifacts
 ```
 
 Volumes Docker:

@@ -9,11 +9,7 @@ Definir o padrao SSH da infraestrutura para novas VMs e para a futura VM Templat
 Padrao futuro:
 
 ```text
-/etc/ssh/sshd_config
- |
- +-- Include /etc/ssh/sshd_config.d/*.conf
-       |
-       +-- 99-emerson.conf
+/etc/ssh/sshd_config > Include /etc/ssh/sshd_config.d/*.conf > 99-emerson.conf
 ```
 
 Decisao:

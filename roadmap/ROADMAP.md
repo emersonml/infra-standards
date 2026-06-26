@@ -13,6 +13,7 @@
 [TODO] Eliminar customizacoes diretas no `sshd_config` principal.
 [TODO] Validar modelo SSH em VM de laboratorio.
 [TODO] Atualizar VM Template com o padrao SSH aprovado.
+[TODO] Publish SSH Standard.
 
 ## NFS
 
@@ -25,6 +26,7 @@
 [TODO] Padronizar estrutura Docker.
 [TODO] Padronizar uso de Docker Compose.
 [TODO] Inventariar imagens criticas e digests.
+[TODO] Publish Docker Standard.
 
 ## Scripts
 
@@ -36,9 +38,28 @@
 [TODO] Padronizar documentacao das VMs.
 [TODO] Aplicar templates em novas VMs.
 [TODO] Revisar VMs existentes contra o padrao.
+[TODO] Consolidate Documentation standard.
 
 ## Artefatos de Recuperacao
 
 [TODO] Padronizar politica de Artefatos de Recuperacao.
 [TODO] Definir manifesto minimo.
 [TODO] Definir validacao obrigatoria por checksums.
+[TODO] Standardize Recovery Artifacts.
+
+## Decision Records
+
+[TODO] Complete Decision Records.
+
+## Backup
+
+[TODO] Publish Backup Standard.
+[TODO] Define second-disk backup policy on OMV.
+
+## Monitoring
+
+[TODO] Publish Monitoring Standard.
+
+## Templates
+
+[TODO] Create Linux Template Standard.

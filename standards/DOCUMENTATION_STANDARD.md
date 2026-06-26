@@ -48,13 +48,26 @@ Finalidade:
 Todo trabalho operacional deve seguir:
 
 ```text
-Diagnostico
-Evidencias
-Plano
-Execucao
-Validacao
-Documentacao
-Relatorio
+Diagnostico > Evidencias > Plano > Execucao > Validacao > Documentacao > Relatorio
+```
+
+## Flow Notation
+
+Todos os fluxos da documentacao devem utilizar o formato compacto:
+
+```text
+Step 1 > Step 2 > Step 3 > Step 4
+```
+
+Evitar diagramas verticais.
+
+Priorizar leitura, diffs Git e facilidade de manutencao.
+
+Exemplos:
+
+```text
+Template > Clone > Hostname > Network > SSH > NFS > Docker > Documentation > Snapshot > Ready
+Discovery > Documentation > Artifacts > Pre-flight > Migration > Validation > Cutover > Rollback > Final Documentation
 ```
 
 ## Documentos minimos por VM

@@ -29,11 +29,10 @@ Este repositorio nao deve conter:
 Padroes globais:
 
 ```text
-infra-standards/
- |
- +--> standards/
- +--> templates/
- +--> roadmap/
+infra-standards > standards
+infra-standards > templates
+infra-standards > decision-records
+infra-standards > roadmap
 ```
 
 Documentacao viva de cada VM:
@@ -54,22 +53,17 @@ Regra:
 Toda intervencao deve seguir:
 
 ```text
-Diagnostico
-Evidencias
-Plano
-Execucao
-Validacao
-Documentacao
-Relatorio
+Diagnostico > Evidencias > Plano > Execucao > Validacao > Documentacao > Relatorio
 ```
 
 Nenhuma alteracao estrutural deve ser executada por hipotese.
 
-## Estrutura inicial
+## Repository Structure
 
 ```text
 README.md
 ARCHITECTURE.md
+LIFECYCLE.md
 
 standards/
   DOCUMENTATION_STANDARD.md
@@ -89,9 +83,27 @@ templates/
   NETWORK_TEMPLATE.md
   TODO_TEMPLATE.md
 
+decision-records/
+  0001-one-nfs-export-per-vm.md
+  0002-artifacts-standard.md
+  0003-documentation-standard.md
+  0004-docker-layout.md
+  0005-centralized-proxy.md
+  0006-ipv4-only.md
+  0007-migration-policy.md
+
 roadmap/
   ROADMAP.md
 ```
+
+Meaning:
+
+- `ARCHITECTURE.md`: macro architecture and governance.
+- `LIFECYCLE.md`: standard VM lifecycle.
+- `standards/`: reusable technical standards.
+- `templates/`: local VM documentation templates.
+- `decision-records/`: approved architectural decisions.
+- `roadmap/`: standardization roadmap.
 
 ## Padrao de escrita
 

@@ -42,22 +42,7 @@ operational state and exceptions.
 Conceptual model:
 
 ```text
-GitHub infra-standards
-        |
-        v
-VM152 Codex
-        |
-        +-- reads standards
-        +-- updates documentation
-        +-- proposes changes
-        |
-        v
-Infrastructure VMs
-        |
-        +-- /opt/projects
-        +-- /mnt/nfs
-        +-- Docker
-        +-- Artifacts
+GitHub infra-standards > VM152 Codex > Infrastructure VMs > /opt/projects + /mnt/nfs + Docker + Artifacts
 ```
 
 Layers:
@@ -94,10 +79,8 @@ Responsibilities:
 Official storage layout:
 
 ```text
-/mnt/nfs
-    /docker
-        /volumes
-    /artifacts
+/mnt/nfs > docker > volumes
+/mnt/nfs > artifacts
 ```
 
 Meaning:
@@ -133,13 +116,7 @@ Rules:
 Standard relationship:
 
 ```text
-/opt/projects/<service>/docker-compose.yml
-        |
-        v
-Docker Compose
-        |
-        v
-/mnt/nfs/docker/volumes/<service>
+/opt/projects/<service>/docker-compose.yml > Docker Compose > /mnt/nfs/docker/volumes/<service>
 ```
 
 ## Artifacts Model
@@ -257,27 +234,39 @@ Rules:
 Automation must respect the intervention flow:
 
 ```text
-Diagnostico
-Evidencias
-Plano
-Execucao
-Validacao
-Documentacao
-Relatorio
+Diagnostico > Evidencias > Plano > Execucao > Validacao > Documentacao > Relatorio
 ```
+
+## Architecture Governance
+
+Governance layers:
+
+- Standards: define reusable infrastructure rules.
+- Decision Records: register approved architecture decisions and their impact.
+- Templates: provide consistent starting points for VM documentation.
+- VM Documentation: records operational state and local exceptions.
+- Operational Documentation: records execution evidence, validation and final state.
+
+Rule:
+
+```text
+Standards > Decision Records > Templates > VM Documentation > Operational Documentation
+```
+
+Responsibilities:
+
+- `standards/` defines how infrastructure should be built.
+- `decision-records/` explains why approved decisions exist.
+- `templates/` defines how local docs should start.
+- `/opt/projects/HOST.md` and `/opt/projects/.docs/` describe each VM.
+- Change reports document what was done and validated.
 
 ## Security Model
 
 Hardening must follow this flow:
 
 ```text
-1. Identify risk
-2. Document risk
-3. Define mitigation
-4. Evaluate operational impact
-5. Test in controlled scope
-6. Validate affected functions
-7. Document final state
+Identify risk > Document risk > Define mitigation > Evaluate operational impact > Test in controlled scope > Validate affected functions > Document final state
 ```
 
 Hardening must not break these functions without documented justification:
@@ -330,15 +319,7 @@ Rules:
 Standard migration flow:
 
 ```text
-1. Discovery
-2. Documentation
-3. Artifacts
-4. Pre-flight
-5. Migration
-6. Validation
-7. Cutover
-8. Rollback plan
-9. Final documentation
+Discovery > Documentation > Artifacts > Pre-flight > Migration > Validation > Cutover > Rollback plan > Final documentation
 ```
 
 Rules:
