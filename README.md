@@ -68,6 +68,7 @@ LIFECYCLE.md
 
 standards/
   DOCUMENTATION_STANDARD.md
+  GIT_STANDARD.md
   DOCKER_STANDARD.md
   NFS_STANDARD.md
   SSH_STANDARD.md
@@ -143,6 +144,37 @@ Rules:
 - Standard represents an official rule.
 - No infrastructure evolution should become a Standard directly.
 - Every approved Standard must have a corresponding Decision Record.
+
+## Git Policy
+
+Git usage in this repository separates local work records from official remote
+publication.
+
+Policy:
+
+- Local commit represents work record.
+- Remote push represents official publication.
+- Codex may create local commits during work.
+- Codex must not push automatically after every commit.
+- Push requires publication criteria or explicit Emerson request.
+
+Local commit flow:
+
+```text
+Change > Validate > Commit > Continue
+```
+
+Remote push flow:
+
+```text
+Review > Clean Worktree > Count Local Commits > Show Pending Commits > Push > Confirm Remote
+```
+
+Detailed rules are defined in:
+
+```text
+standards/GIT_STANDARD.md
+```
 
 ## Padrao de escrita
 

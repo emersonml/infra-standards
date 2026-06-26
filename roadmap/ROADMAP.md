@@ -9,6 +9,7 @@
 [TODO] Publish Philosophy.
 [TODO] Create RFC process.
 [TODO] Review governance workflow.
+[TODO] Publish Git Standard.
 
 ## SSH
 
@@ -54,6 +55,7 @@
 ## Decision Records
 
 [TODO] Complete Decision Records.
+[TODO] Create Decision Record for Git publication policy.
 
 ## Backup
 

@@ -108,6 +108,29 @@ Toda VM deve possuir:
 /opt/projects/.docs/TODO.md
 ```
 
+## Git Documentation Policy
+
+Git history is part of the repository documentation.
+
+Policy:
+
+- Local commit records completed work.
+- Remote push publishes official state.
+- Commit messages must describe the documentation change.
+- Push must be deliberate and validated.
+- Pending local commits must be reported before push.
+
+Required validation before push:
+
+```text
+git status
+git log --oneline origin/main..HEAD
+```
+
+If worktree is not clean, do not push.
+
+If local and remote diverge, stop and report.
+
 ## Formato de roadmap
 
 Usar:

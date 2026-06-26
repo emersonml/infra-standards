@@ -280,6 +280,22 @@ Governance rules:
 - Every approved Standard must have a corresponding Decision Record.
 - No infrastructure evolution should become a Standard directly.
 
+Git publication rules:
+
+- Local commits are work records.
+- Remote push is official publication.
+- Codex may create local commits during work.
+- Codex must not push automatically after each commit.
+- Emerson can explicitly request push.
+- Before push, Codex must report pending local commits.
+- Push must not happen with a dirty worktree.
+
+Git publication flow:
+
+```text
+Local Commit > Validate Worktree > Count Pending Commits > Review Pending Log > Push > Confirm Remote
+```
+
 ## Security Model
 
 Hardening must follow this flow:

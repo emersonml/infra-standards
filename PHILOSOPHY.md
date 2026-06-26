@@ -20,6 +20,8 @@ must be reasoned about, changed, documented and governed.
 - Local implementation.
 - Standards evolve through governance.
 - Every architectural decision must be documented.
+- Commit local work before changing context.
+- Publish remote changes only with clear criteria.
 
 ## Engineering Principles
 
@@ -73,6 +75,8 @@ must be reasoned about, changed, documented and governed.
 - Local VM documentation must reflect operational reality.
 - If documentation and environment disagree, the environment is evidence and documentation must be corrected.
 - Changes must end with validation and a report.
+- Local commits preserve work history.
+- Remote push publishes official repository state.
 
 ## Decision Principles
 
@@ -83,3 +87,5 @@ must be reasoned about, changed, documented and governed.
 - Not every RFC is approved.
 - Not every approved decision creates a Standard.
 - Decisions must document context, consequences and implementation.
+- Publication must be intentional.
+- Emerson controls explicit publication approval.
