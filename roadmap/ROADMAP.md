@@ -6,6 +6,9 @@
 [OK ] Criar estrutura inicial de standards.
 [OK ] Criar templates de documentacao viva das VMs.
 [OK ] Registrar fluxo obrigatorio de intervencao.
+[TODO] Publish Philosophy.
+[TODO] Create RFC process.
+[TODO] Review governance workflow.
 
 ## SSH
 
@@ -46,6 +49,7 @@
 [TODO] Definir manifesto minimo.
 [TODO] Definir validacao obrigatoria por checksums.
 [TODO] Standardize Recovery Artifacts.
+[TODO] Publish Recovery Artifact Standard.
 
 ## Decision Records
 
@@ -63,3 +67,4 @@
 ## Templates
 
 [TODO] Create Linux Template Standard.
+[TODO] Publish Linux Template Standard.

@@ -70,6 +70,31 @@ Template > Clone > Hostname > Network > SSH > NFS > Docker > Documentation > Sna
 Discovery > Documentation > Artifacts > Pre-flight > Migration > Validation > Cutover > Rollback > Final Documentation
 ```
 
+## Documentation Hierarchy
+
+Hierarquia oficial:
+
+```text
+PHILOSOPHY > ARCHITECTURE > LIFECYCLE > REQUESTS (RFC) > DECISION RECORDS (ADR) > STANDARDS > TEMPLATES > VM DOCUMENTATION > SERVICES
+```
+
+Responsabilidades:
+
+- `PHILOSOPHY.md`: principios permanentes.
+- `ARCHITECTURE.md`: visao macro e governanca.
+- `LIFECYCLE.md`: ciclo de vida padrao das VMs.
+- `requests/`: propostas de mudanca.
+- `decision-records/`: decisoes aprovadas.
+- `standards/`: regras oficiais.
+- `templates/`: modelos reutilizaveis.
+- VM documentation: estado local e excecoes.
+- Services: implementacao operacional.
+
+Regra:
+
+- Documentos de nivel inferior nunca podem contrariar documentos de nivel superior.
+- Quando houver conflito, o documento inferior deve ser corrigido ou uma RFC deve propor mudanca no nivel superior.
+
 ## Documentos minimos por VM
 
 Toda VM deve possuir:

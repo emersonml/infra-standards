@@ -62,6 +62,7 @@ Nenhuma alteracao estrutural deve ser executada por hipotese.
 
 ```text
 README.md
+PHILOSOPHY.md
 ARCHITECTURE.md
 LIFECYCLE.md
 
@@ -92,18 +93,56 @@ decision-records/
   0006-ipv4-only.md
   0007-migration-policy.md
 
+requests/
+  README.md
+  RFC_TEMPLATE.md
+
 roadmap/
   ROADMAP.md
 ```
 
 Meaning:
 
+- `README.md`: repository entry point.
+- `PHILOSOPHY.md`: permanent infrastructure principles.
 - `ARCHITECTURE.md`: macro architecture and governance.
 - `LIFECYCLE.md`: standard VM lifecycle.
+- `requests/`: proposed infrastructure changes.
+- `decision-records/`: approved architectural decisions.
 - `standards/`: reusable technical standards.
 - `templates/`: local VM documentation templates.
-- `decision-records/`: approved architectural decisions.
 - `roadmap/`: standardization roadmap.
+
+## Repository Governance
+
+The repository governance model defines how an idea becomes infrastructure
+policy.
+
+Documents and responsibilities:
+
+- `README.md`: entry point and repository map.
+- `PHILOSOPHY.md`: permanent infrastructure principles.
+- `ARCHITECTURE.md`: macro architecture and governance model.
+- `LIFECYCLE.md`: standard VM lifecycle.
+- `decision-records/`: approved architectural decisions.
+- `requests/`: RFCs and proposed changes.
+- `standards/`: official reusable rules.
+- `templates/`: reusable documentation starting points.
+- `roadmap/`: planned standardization work.
+
+Evolution flow:
+
+```text
+Idea > RFC > Review > Approval > Decision Record > Standard > Template > VM > Service
+```
+
+Rules:
+
+- RFC represents a proposal.
+- ADR represents an approved decision.
+- Standard represents an official rule.
+- No infrastructure evolution should become a Standard directly.
+- Every approved Standard must have a corresponding Decision Record.
 
 ## Padrao de escrita
 

@@ -239,8 +239,16 @@ Diagnostico > Evidencias > Plano > Execucao > Validacao > Documentacao > Relator
 
 ## Architecture Governance
 
+Architecture evolution flow:
+
+```text
+Idea > RFC > Review > Approval > Decision Record > Standard > Template > VM > Service
+```
+
 Governance layers:
 
+- Philosophy: defines permanent principles.
+- Requests: propose infrastructure changes.
 - Standards: define reusable infrastructure rules.
 - Decision Records: register approved architecture decisions and their impact.
 - Templates: provide consistent starting points for VM documentation.
@@ -250,16 +258,27 @@ Governance layers:
 Rule:
 
 ```text
-Standards > Decision Records > Templates > VM Documentation > Operational Documentation
+Philosophy > Architecture > Lifecycle > Requests > Decision Records > Standards > Templates > VM Documentation > Services
 ```
 
 Responsibilities:
 
-- `standards/` defines how infrastructure should be built.
+- `PHILOSOPHY.md` defines permanent principles.
+- `ARCHITECTURE.md` defines macro structure and governance.
+- `LIFECYCLE.md` defines VM lifecycle.
+- `requests/` contains RFCs and proposed changes.
 - `decision-records/` explains why approved decisions exist.
+- `standards/` defines how infrastructure should be built.
 - `templates/` defines how local docs should start.
 - `/opt/projects/HOST.md` and `/opt/projects/.docs/` describe each VM.
 - Change reports document what was done and validated.
+
+Governance rules:
+
+- Not every RFC will be approved.
+- Not every RFC generates a Standard.
+- Every approved Standard must have a corresponding Decision Record.
+- No infrastructure evolution should become a Standard directly.
 
 ## Security Model
 
