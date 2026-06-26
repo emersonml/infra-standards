@@ -62,6 +62,14 @@
 [TODO] Publish Backup Standard.
 [TODO] Define second-disk backup policy on OMV.
 
+## Security
+
+[TODO] Document SECURITY/ACCESS_CONTROL.md after the Zabbix migration is complete.
+[TODO] Define Bastion architecture in the access control standard.
+[TODO] Define firewall policy layer order: OPNsense, Proxmox Firewall, VM Firewall, sshd_config.
+[TODO] Define SSH hardening scope without using sshd_config for network segmentation.
+[TODO] Define administrative access rollback plan.
+
 ## Monitoring
 
 [TODO] Publish Monitoring Standard.
