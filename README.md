@@ -69,6 +69,7 @@ Nenhuma alteracao estrutural deve ser executada por hipotese.
 
 ```text
 README.md
+ARCHITECTURE.md
 
 standards/
   DOCUMENTATION_STANDARD.md
@@ -99,6 +100,18 @@ roadmap/
 - Escrever documentacao tecnica objetiva.
 - Evitar duplicacao de conteudo.
 - Atualizar a documentacao sempre que um padrao mudar.
+
+## Arquitetura
+
+A visao macro da infraestrutura esta documentada em:
+
+```text
+ARCHITECTURE.md
+```
+
+Esse documento explica como GitHub, VM152 Codex, VMs, storage, Docker, NFS,
+artefatos, backups, documentacao, automacao, seguranca, observabilidade e
+migracoes se conectam.
 
 ## Decisoes arquiteturais registradas
 
