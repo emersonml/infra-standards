@@ -15,6 +15,16 @@ Ultima atualizacao: YYYY-MM-DD
 - Gateway: <gateway>
 - DNS: <dns>
 - SSH: `ssh -p 22123 emerson@<ip>`
+- Bastion/ProxyJump: <nao_aplicavel_ou_comando>
+
+## Acesso administrativo
+
+- Operador humano: emerson
+- Agente Codex: codex-infra
+- Agente Claude: claude-infra
+- Grupo administrativo: infra-admin
+- Grupo SSH: _ssh
+- Sudo temporario de bootstrap: <nao_aplicavel|removido|justificado>
 
 ## Recursos
 
@@ -28,6 +38,7 @@ Ultima atualizacao: YYYY-MM-DD
 ```text
 /opt/projects
 /opt/projects/.docs
+/opt/projects/reports
 /mnt/nfs
 /mnt/nfs/docker/volumes
 /mnt/nfs/artifacts
@@ -42,6 +53,8 @@ Ultima atualizacao: YYYY-MM-DD
 - Ler este arquivo antes de qualquer alteracao.
 - Ler todos os arquivos em `/opt/projects/.docs/`.
 - Atualizar documentacao apos mudancas.
+- Gerar relatorio em `/opt/projects/reports/` para intervencoes relevantes.
+- Parar e pedir orientacao antes de multiplas tentativas sem causa raiz clara.
 
 ## Documentacao complementar
 

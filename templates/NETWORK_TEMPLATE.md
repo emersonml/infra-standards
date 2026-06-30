@@ -21,6 +21,15 @@ Documentacao de rede da VM.
 ssh -p 22123 emerson@<ip>
 ```
 
+## Bastion / ProxyJump
+
+- Bastion: <nao_aplicavel|hostname_ou_ip>
+- ProxyJump:
+
+```text
+ssh -J <usuario>@<bastion>:22123 -p 22123 <usuario>@<ip-alvo>
+```
+
 ## NFS
 
 - Servidor:

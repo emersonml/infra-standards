@@ -43,6 +43,33 @@ Finalidade:
 - decisoes locais;
 - pendencias locais.
 
+Relatorios operacionais:
+
+```text
+/opt/projects/reports/
+```
+
+Finalidade:
+
+- registrar execucao operacional;
+- registrar evidencias e validacao;
+- registrar arquivos alterados;
+- registrar rollback e riscos;
+- registrar resultado final.
+
+Regra:
+
+- relatorio operacional nao e fonte oficial de arquitetura;
+- relatorio operacional nao substitui `HOST.md` ou `.docs/`;
+- decisao permanente descoberta em relatorio deve ser promovida para ADR,
+  Standard ou Template quando aprovada.
+
+Classificacao:
+
+- Governanca
+- Padrao
+- Procedimento
+
 ## Fluxo obrigatorio
 
 Todo trabalho operacional deve seguir:
@@ -106,6 +133,37 @@ Toda VM deve possuir:
 /opt/projects/.docs/INVENTORY.md
 /opt/projects/.docs/NETWORK.md
 /opt/projects/.docs/TODO.md
+```
+
+Diretorio minimo de relatorios:
+
+```text
+/opt/projects/reports/
+```
+
+## Operational Report Policy
+
+Reports must use:
+
+```text
+REL-YYYY-MM-DD-NNN-description.md
+```
+
+Reports must include:
+
+- objective;
+- files changed;
+- new standards formalized;
+- items migrated from runtime;
+- commits created;
+- push status;
+- validation;
+- recommended next step.
+
+Template:
+
+```text
+templates/OPERATIONAL_REPORT_TEMPLATE.md
 ```
 
 ## Git Documentation Policy

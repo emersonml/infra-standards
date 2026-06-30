@@ -23,6 +23,49 @@ Definir requisitos minimos de seguranca operacional.
 - Grupos administrativos devem ser documentados.
 - Permissoes de arquivos devem ser restritivas por padrao.
 
+## Controle de acesso administrativo
+
+Classificacao:
+
+- Governanca
+- Padrao
+
+Usuarios padrao:
+
+- `emerson`: operador humano.
+- `codex-infra`: agente Codex.
+- `claude-infra`: agente Claude.
+
+Grupos padrao:
+
+- `_ssh`: login SSH.
+- `infra-admin`: autorizacao administrativa.
+
+Regras:
+
+- acesso humano e acesso de agentes devem ser separados;
+- agentes devem usar usuarios nominais proprios;
+- contas de agentes nao devem compartilhar chaves privadas com `emerson`;
+- sudo permanente para agentes exige justificativa documentada;
+- sudo temporario para bootstrap deve ser removido ou reduzido ao final;
+- alteracoes em SSH, sudo ou grupos exigem rollback documentado.
+
+## Politica de Bastion
+
+Classificacao:
+
+- Arquitetura
+- Padrao
+
+Bastion e um ponto controlado de entrada administrativa.
+
+Regras:
+
+- Bastion nao remove a necessidade de autorizacao;
+- ProxyJump deve preservar identidade nominal;
+- acesso direto fora do Bastion deve ser documentado quando permitido;
+- mudancas no Bastion exigem validacao de SSH, SCP e RSYNC.
+
 ## Segredos
 
 Proibido registrar:
@@ -65,3 +108,18 @@ Toda alteracao relevante deve registrar:
 - impacto;
 - rollback;
 - validacao.
+
+## Tentativas repetidas
+
+Classificacao:
+
+- Procedimento
+- Boas praticas
+
+Se uma operacao falhar repetidamente, o operador ou agente deve parar e pedir
+orientacao antes de novas tentativas quando:
+
+- a causa raiz nao estiver clara;
+- a terceira tentativa puder alterar estado;
+- a proxima tentativa exigir privilegio maior;
+- a proxima tentativa puder afetar acesso, dados, rede ou producao.

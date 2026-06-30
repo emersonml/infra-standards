@@ -6,6 +6,12 @@ Definir o padrao SSH da infraestrutura para novas VMs e para a futura VM Templat
 
 ## Direcao arquitetural
 
+Classificacao:
+
+- Arquitetura
+- Padrao
+- Procedimento
+
 Padrao futuro:
 
 ```text
@@ -24,7 +30,7 @@ Decisao:
 Port 22123
 ListenAddress <IPv4 da VM>
 PermitRootLogin no
-AllowUsers emerson
+AllowUsers emerson codex-infra claude-infra
 AllowGroups _ssh
 PubkeyAuthentication yes
 PasswordAuthentication no
@@ -64,6 +70,54 @@ GatewayPorts no
 ```
 
 Excecoes devem usar `Match` com justificativa documentada.
+
+## Usuarios e grupos
+
+Classificacao:
+
+- Governanca
+- Padrao
+
+Usuarios padrao:
+
+- `emerson`: operador humano.
+- `codex-infra`: agente Codex.
+- `claude-infra`: agente Claude.
+
+Grupos padrao:
+
+- `_ssh`: autorizado a autenticar via SSH.
+- `infra-admin`: autorizado para administracao conforme politica de sudo.
+
+Regras:
+
+- `_ssh` controla login SSH.
+- `infra-admin` controla elegibilidade administrativa.
+- um usuario pode ter SSH sem sudo;
+- um agente nao deve receber privilegio maior que o necessario.
+
+## Bastion e ProxyJump
+
+Classificacao:
+
+- Arquitetura
+- Padrao
+- Procedimento
+
+Quando houver Bastion aprovado, o acesso deve usar ProxyJump.
+
+Formato:
+
+```text
+ssh -J <usuario>@<bastion>:22123 -p 22123 <usuario>@<ip-alvo>
+```
+
+Regras:
+
+- preservar usuario nominal no Bastion e no destino;
+- evitar chaves compartilhadas entre humanos e agentes;
+- documentar excecoes de acesso direto no `NETWORK.md` da VM;
+- validar `ssh`, `scp` e `rsync` pelo caminho aprovado.
 
 ## Configuracoes que nao devem ser usadas globalmente
 

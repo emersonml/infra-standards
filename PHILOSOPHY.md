@@ -22,6 +22,8 @@ must be reasoned about, changed, documented and governed.
 - Every architectural decision must be documented.
 - Commit local work before changing context.
 - Publish remote changes only with clear criteria.
+- Human authority remains separate from AI agent execution.
+- Official documentation remains separate from operational reports.
 
 ## Engineering Principles
 
@@ -30,6 +32,7 @@ must be reasoned about, changed, documented and governed.
 - Prefer known operational state over assumptions.
 - Separate migration from upgrade.
 - Separate standards from local implementation.
+- Separate standards from executable runtime.
 - Keep blast radius small.
 - Validate before and after change.
 - Treat exceptions as documented debt.
@@ -46,6 +49,7 @@ must be reasoned about, changed, documented and governed.
 - Standards define official rules.
 - Templates define starting points.
 - VM documentation records local state and exceptions.
+- Operational reports record execution evidence and outcome.
 - ASCII-only documentation.
 
 ## Security Principles
@@ -54,6 +58,8 @@ must be reasoned about, changed, documented and governed.
 - Security with operational validation.
 - Hardening must be tested in controlled scope.
 - Hardening must not silently break SSH, SCP, RSYNC, SFTP, automation, backup or recovery.
+- SSH login and administrative privilege must be controlled separately.
+- Bastion and ProxyJump must preserve nominal identity and auditability.
 - Secrets must not be stored in documentation.
 - Private keys must not be committed.
 - Public exposure must be intentional and documented.
@@ -66,6 +72,7 @@ must be reasoned about, changed, documented and governed.
 - Automation must expose intent and result.
 - Automation must not hide destructive actions.
 - Automation must follow the same evidence and rollback rules as manual work.
+- AI agents must stop and ask before repeated failed attempts on the same task.
 
 ## Operational Principles
 
@@ -77,6 +84,8 @@ must be reasoned about, changed, documented and governed.
 - Changes must end with validation and a report.
 - Local commits preserve work history.
 - Remote push publishes official repository state.
+- Snapshots protect rollback for structural or risky changes.
+- Temporary sudo is allowed for bootstrap only when documented and removed or reduced after use.
 
 ## Decision Principles
 
@@ -89,3 +98,4 @@ must be reasoned about, changed, documented and governed.
 - Decisions must document context, consequences and implementation.
 - Publication must be intentional.
 - Emerson controls explicit publication approval.
+- Emerson remains the final authority for AI-assisted infrastructure changes.

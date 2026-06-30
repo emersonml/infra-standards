@@ -21,6 +21,8 @@ Required outputs:
 - Function documented.
 - Network plan documented.
 - Storage requirement identified.
+- Access model documented.
+- Human and agent administrative identities identified when applicable.
 
 ---
 
@@ -33,7 +35,7 @@ Purpose:
 Flow:
 
 ```text
-Template > Clone > Hostname > Network > SSH > NFS > Docker > Documentation > Snapshot > Ready
+Template > Clone > Hostname > Network > Identity > SSH > NFS > Docker > Documentation > Snapshot > Ready
 ```
 
 Required outputs:
@@ -41,11 +43,20 @@ Required outputs:
 - Hostname configured.
 - IPv4 configured.
 - SSH access validated.
+- Standard users and groups configured when applicable.
 - NFS mounted when required.
 - Docker installed when required.
 - `/opt/projects/HOST.md` created.
 - `/opt/projects/.docs/` created.
+- `/opt/projects/reports/` created.
 - Snapshot recommended or created according to change scope.
+- Temporary bootstrap sudo removed, reduced or justified.
+
+Bootstrap classification:
+
+- Arquitetura
+- Procedimento
+- Padrao
 
 ---
 
@@ -111,6 +122,8 @@ Required outputs:
 - Validation completed.
 - Snapshot considered according to risk.
 - Documentation updated.
+- Operational report created when the change is relevant.
+- Agent must ask before multiple failed retries on the same operation.
 
 ---
 
@@ -131,9 +144,24 @@ Required outputs:
 - Source documented.
 - Destination validated.
 - Recovery artifacts created.
+- Snapshot considered or created according to risk.
 - Rollback plan documented.
 - Cutover validated.
 - Final state documented.
+- Operational report created.
+
+Rollback classification:
+
+- Procedimento
+- Padrao
+- Boas praticas
+
+Rollback rules:
+
+- rollback must be planned before execution;
+- rollback must identify the exact state to restore;
+- rollback must not depend only on memory or shell history;
+- rollback must be validated when executed.
 
 ---
 
@@ -157,3 +185,37 @@ Required outputs:
 - Proxy and DNS dependencies removed when applicable.
 - Documentation archived.
 - VM destroyed only after approval.
+
+---
+
+## Snapshot and Rollback Policy
+
+Classification:
+
+- Governanca
+- Padrao
+- Procedimento
+
+Snapshots are required or recommended according to operational risk.
+
+Snapshot is required before:
+
+- destructive structural changes;
+- migrations with production impact;
+- storage layout changes;
+- SSH or access hardening that can affect recoverability;
+- rollback tests that may alter persistent state.
+
+Snapshot is recommended before:
+
+- major package updates;
+- Docker runtime changes;
+- service stack changes;
+- bootstrap phases that change identity, SSH or sudo.
+
+Rules:
+
+- snapshot does not replace artifacts or backups;
+- snapshot must have a clear restore point name;
+- rollback path must be documented before execution;
+- if snapshot is skipped, the reason must be documented.

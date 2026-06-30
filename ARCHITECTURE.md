@@ -42,16 +42,109 @@ operational state and exceptions.
 Conceptual model:
 
 ```text
-GitHub infra-standards > VM152 Codex > Infrastructure VMs > /opt/projects + /mnt/nfs + Docker + Artifacts
+GitHub infra-standards > Human Operator > AI Agents > Infrastructure VMs > /opt/projects + /mnt/nfs + Docker + Artifacts
 ```
 
 Layers:
 
 - GitHub stores global standards and templates.
-- VM152 Codex reads standards, updates documentation and proposes changes.
+- Emerson is the human operator and final authority for infrastructure changes.
+- AI agents read standards, update documentation, execute approved procedures and
+  produce reports.
 - Infrastructure VMs implement the standards according to their role.
 - NFS stores persistent data and recovery artifacts.
 - OMV is responsible for definitive second-disk backup.
+
+## AI Agent Architecture
+
+Classification:
+
+- Arquitetura
+- Governanca
+- Padrao
+
+The infrastructure supports assisted operation by AI agents.
+
+Roles:
+
+- `emerson`: human operator and owner of final authorization.
+- `codex-infra`: Codex operational agent identity.
+- `claude-infra`: Claude operational agent identity.
+
+Rules:
+
+- AI agents do not replace the human operator.
+- AI agents must follow the same standards as a human operator.
+- AI agents must read the relevant local context before execution.
+- AI agents must stop and ask before repeated failed attempts on the same
+  operation.
+- AI agents must document permanent decisions in the correct standards layer.
+- AI agents must write operational reports for relevant interventions.
+
+Detailed rules are defined in:
+
+```text
+standards/AI_AGENT_STANDARD.md
+```
+
+## Access Architecture
+
+Classification:
+
+- Arquitetura
+- Governanca
+- Padrao
+
+Standard administrative identities:
+
+- `emerson`: nominal human administrator.
+- `codex-infra`: nominal Codex automation user.
+- `claude-infra`: nominal Claude automation user.
+
+Standard groups:
+
+- `infra-admin`: users authorized for administrative tasks.
+- `_ssh`: users authorized for SSH login.
+
+Rules:
+
+- SSH login and administrative privilege are separate controls.
+- Membership in `_ssh` allows SSH access only.
+- Membership in `infra-admin` identifies administrative authorization.
+- Sudo privileges for agents must be scoped, documented and removable.
+- Temporary sudo during bootstrap is allowed only for institutional bootstrap
+  and must be removed or reduced after validation.
+
+## Bastion and ProxyJump Model
+
+Classification:
+
+- Arquitetura
+- Padrao
+- Procedimento
+
+Remote administration should prefer an approved Bastion path when direct access
+is not required.
+
+Conceptual flow:
+
+```text
+Operator or Agent > Bastion > Target VM
+```
+
+SSH client flow:
+
+```text
+ssh -J <bastion> <target>
+```
+
+Rules:
+
+- Bastion is an access path, not a place to bypass governance.
+- ProxyJump must preserve nominal user identity.
+- Direct SSH to a VM is allowed only when the network model and authorization
+  allow it.
+- Bastion changes require documentation and rollback.
 
 ## Standard VM Layout
 
@@ -61,6 +154,7 @@ Every VM should follow this layout when applicable:
 /opt/projects
 /opt/projects/HOST.md
 /opt/projects/.docs
+/opt/projects/reports
 /mnt/nfs
 /mnt/nfs/docker/volumes
 /mnt/nfs/artifacts
@@ -71,6 +165,7 @@ Responsibilities:
 - `/opt/projects` stores project configuration, compose files and live VM docs.
 - `/opt/projects/HOST.md` is the main local context for the VM.
 - `/opt/projects/.docs/` stores local operational documentation.
+- `/opt/projects/reports/` stores operational reports.
 - `/mnt/nfs/docker/volumes` stores persistent container data.
 - `/mnt/nfs/artifacts` stores recovery artifacts.
 
@@ -211,9 +306,34 @@ Global standards must describe:
 - required validation flows;
 - common roadmaps.
 
+Operational reports:
+
+```text
+/opt/projects/reports/
+```
+
+Operational reports must describe:
+
+- work performed;
+- evidence collected;
+- files changed;
+- validation;
+- rollback;
+- pending risks.
+
+Reports do not replace official documentation.
+
 ## Automation Model
 
 Automation must follow standards and must not hide operational changes.
+
+The runtime boundary is explicit:
+
+- `infra-standards` stores architecture, governance, policies and templates.
+- `infra-runtime` stores scripts, automations, executable bootstrap and
+  operational utilities.
+- permanent runtime decisions must be migrated into `infra-standards`;
+- executable runtime components must not be copied into `infra-standards`.
 
 Expected script categories:
 
@@ -324,6 +444,36 @@ Security rules:
 - Do not alter firewall, DNS, proxy or certificates without authorization.
 - Prefer key-based SSH authentication.
 - Keep operational access recoverable during hardening.
+- Separate human operator access from AI agent access.
+- Keep Bastion and ProxyJump paths documented when used.
+- Use temporary sudo only during approved bootstrap or recovery windows.
+
+## Bootstrap Model
+
+Classification:
+
+- Arquitetura
+- Procedimento
+- Padrao
+
+Institutional bootstrap is the initial process that brings a VM to the standard
+baseline.
+
+Bootstrap flow:
+
+```text
+Base VM > Identity > SSH > Groups > /opt/projects > Documentation > NFS > Docker > Snapshot > Ready
+```
+
+Rules:
+
+- bootstrap may use temporary sudo when required;
+- temporary sudo must be documented before use;
+- temporary sudo must be removed, reduced or explicitly justified after
+  bootstrap;
+- bootstrap must create `/opt/projects`, `/opt/projects/HOST.md`,
+  `/opt/projects/.docs/` and `/opt/projects/reports/`;
+- bootstrap must end with validation and a report.
 
 ## Observability Model
 

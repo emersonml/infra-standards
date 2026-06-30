@@ -67,6 +67,7 @@ ARCHITECTURE.md
 LIFECYCLE.md
 
 standards/
+  AI_AGENT_STANDARD.md
   DOCUMENTATION_STANDARD.md
   GIT_STANDARD.md
   DOCKER_STANDARD.md
@@ -83,6 +84,7 @@ templates/
   DECISIONS_TEMPLATE.md
   INVENTORY_TEMPLATE.md
   NETWORK_TEMPLATE.md
+  OPERATIONAL_REPORT_TEMPLATE.md
   TODO_TEMPLATE.md
 
 decision-records/
@@ -93,6 +95,9 @@ decision-records/
   0005-centralized-proxy.md
   0006-ipv4-only.md
   0007-migration-policy.md
+  0008-ai-agent-governance.md
+  0009-administrative-access-model.md
+  0010-bootstrap-documentation-and-reports.md
 
 requests/
   README.md
@@ -145,6 +150,20 @@ Rules:
 - No infrastructure evolution should become a Standard directly.
 - Every approved Standard must have a corresponding Decision Record.
 
+## Classificacao
+
+Os documentos deste repositorio devem classificar regras e decisoes conforme a
+funcao do conteudo.
+
+Classificacoes oficiais:
+
+- Arquitetura: estrutura permanente da infraestrutura.
+- Governanca: autoridade, responsabilidade e fluxo de aprovacao.
+- Template: modelo reutilizavel para documentacao local ou relatorio.
+- Padrao: regra tecnica reutilizavel.
+- Procedimento: sequencia operacional executavel por humano ou agente.
+- Boas praticas: recomendacao que reduz risco, sem substituir uma regra.
+
 ## Git Policy
 
 Git usage in this repository separates local work records from official remote
@@ -184,6 +203,54 @@ standards/GIT_STANDARD.md
 - Evitar duplicacao de conteudo.
 - Atualizar a documentacao sempre que um padrao mudar.
 
+## Separacao entre standards e runtime
+
+O repositorio `infra-standards` concentra decisoes permanentes:
+
+- arquitetura;
+- padroes;
+- politicas;
+- governanca;
+- templates;
+- ciclo de vida;
+- decisoes aprovadas.
+
+O repositorio `infra-runtime` deve permanecer responsavel por componentes
+executaveis:
+
+- scripts;
+- automacoes;
+- bootstrap executavel;
+- utilitarios;
+- componentes operacionais.
+
+Regra:
+
+- uma decisao permanente descoberta no runtime deve ser migrada para
+  `infra-standards`;
+- um comando, script ou automacao deve permanecer no `infra-runtime`;
+- standards nao devem conter codigo executavel.
+
+## Documentacao oficial e relatorios
+
+Documentacao oficial:
+
+- `infra-standards`;
+- `/opt/projects/HOST.md`;
+- `/opt/projects/.docs/`.
+
+Relatorios operacionais:
+
+- registram execucao, evidencias, validacao e resultado;
+- nao substituem standards nem documentacao viva;
+- devem ficar em `/opt/projects/reports/` quando aplicavel.
+
+Formato de relatorio:
+
+```text
+REL-YYYY-MM-DD-NNN-descricao.md
+```
+
 ## Arquitetura
 
 A visao macro da infraestrutura esta documentada em:
@@ -205,3 +272,9 @@ migracoes se conectam.
 - Backup para segundo disco e responsabilidade do OMV, nao das VMs.
 - SSH deve ser padronizado futuramente por `sshd_config.d`.
 - O arquivo principal `sshd_config` nao deve concentrar customizacoes futuras.
+- Acesso administrativo separa operador humano e agentes IA.
+- Usuarios padrao: `emerson`, `codex-infra` e `claude-infra`.
+- Grupos padrao: `infra-admin` para administracao e `_ssh` para login SSH.
+- Acesso remoto deve preferir Bastion e ProxyJump quando houver segmentacao.
+- Bootstrap institucional pode usar sudo temporario, removido ao final.
+- Relatorios operacionais ficam separados da documentacao oficial.

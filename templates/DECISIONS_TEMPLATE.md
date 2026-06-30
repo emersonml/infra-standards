@@ -4,6 +4,10 @@ Registro de decisoes arquitetonicas e operacionais.
 
 ## YYYY-MM-DD - <Decisao>
 
+Classificacao:
+
+- <Arquitetura|Governanca|Template|Padrao|Procedimento|Boas praticas>
+
 Decisao:
 
 - <decisao>

@@ -24,6 +24,33 @@ Prioridade:
 - usuario nominal;
 - grupo administrativo.
 
+## Bastion e ProxyJump
+
+Classificacao:
+
+- Arquitetura
+- Padrao
+- Procedimento
+
+Quando houver Bastion aprovado, a administracao remota deve preferir:
+
+```text
+Operator or Agent > Bastion > Target VM
+```
+
+Comando de referencia:
+
+```text
+ssh -J <usuario>@<bastion>:22123 -p 22123 <usuario>@<ip-alvo>
+```
+
+Regras:
+
+- documentar Bastion no `NETWORK.md` da VM quando usado;
+- manter usuario nominal no salto e no destino;
+- nao usar Bastion para contornar firewall, DNS, proxy ou autorizacao;
+- validar `ssh`, `scp` e `rsync` quando o caminho de acesso mudar.
+
 ## Exposicao
 
 Ordem preferida:

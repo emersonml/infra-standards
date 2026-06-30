@@ -65,10 +65,24 @@
 ## Security
 
 [TODO] Document SECURITY/ACCESS_CONTROL.md after the Zabbix migration is complete.
-[TODO] Define Bastion architecture in the access control standard.
+[OK ] Define Bastion architecture in the access control standard.
 [TODO] Define firewall policy layer order: OPNsense, Proxmox Firewall, VM Firewall, sshd_config.
 [TODO] Define SSH hardening scope without using sshd_config for network segmentation.
-[TODO] Define administrative access rollback plan.
+[OK ] Define administrative access rollback plan.
+
+## AI Agents
+
+[OK ] Define human operator and AI agent separation.
+[OK ] Define standard users `emerson`, `codex-infra` and `claude-infra`.
+[OK ] Define groups `infra-admin` and `_ssh`.
+[OK ] Define agent governance and repeated-attempt policy.
+
+## Bootstrap and Reports
+
+[OK ] Define institutional bootstrap baseline.
+[OK ] Define temporary sudo policy for bootstrap.
+[OK ] Define operational report location and naming.
+[TODO] Apply report template to future VM interventions.
 
 ## Monitoring
 

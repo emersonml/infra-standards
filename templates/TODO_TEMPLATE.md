@@ -21,3 +21,5 @@ Pendencias tecnicas e operacionais.
 [TODO] Atualizar DECISIONS.md quando houver decisao arquitetonica.
 [TODO] Atualizar INVENTORY.md quando houver mudanca de inventario.
 [TODO] Atualizar NETWORK.md quando houver mudanca de rede.
+[TODO] Gerar relatorio operacional quando houver intervencao relevante.
+[TODO] Validar se sudo temporario de bootstrap foi removido ou justificado.
