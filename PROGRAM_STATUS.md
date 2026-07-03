@@ -144,7 +144,8 @@ ADRs pendentes previstas:
 
 - documentos recentes ainda estao em `/opt/projects`;
 - `infra-live-docs` ainda nao possui remote origin configurado;
-- `infra-runtime/sudoers/` segue nao rastreado;
+- `infra-runtime` possui commit local ainda nao publicado;
+- `infra-standards` possui commits locais ainda nao publicados;
 - standards antigos ainda citam `/opt/projects` sem distinguir VMs de
   Engenharia e VMs de Servico;
 - relatorios locais ainda carregam decisoes que precisam de promocao.
