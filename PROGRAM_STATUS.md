@@ -2,11 +2,11 @@
 
 ## Status Geral
 
-Institucionalizacao validada localmente.
+Institucionalizacao publicada.
 
 ## Fase Atual
 
-Institucionalizacao da Plataforma - validacao local concluida.
+Institucionalizacao da Plataforma - IMP-001 concluido oficialmente.
 
 ## Architecture Freeze
 
@@ -27,7 +27,7 @@ IMP-001
 ## Etapa Atual
 
 ```text
-Aguardando commit e push institucional autorizados
+IMP-001 encerrado
 ```
 
 ## Ultima Etapa Concluida
@@ -39,19 +39,19 @@ IMP-001 - Etapa 9 - Validacao final de institucionalizacao
 Observacao:
 
 ```text
-Institucionalizacao validada localmente; publicacao Git ainda pendente de autorizacao.
+Institucionalizacao publicada nos repositorios oficiais.
 ```
 
 ## Proxima Etapa
 
 ```text
-Commit e push controlado das alteracoes de institucionalizacao
+A definir pelo Arquiteto-Chefe
 ```
 
 Status:
 
 ```text
-Aguardando autorizacao explicita para Git
+Sem etapa IMP-001 pendente
 ```
 
 ## Projetos Liberados
@@ -63,8 +63,7 @@ nenhum projeto novo liberado por este status
 Observacao:
 
 - operacoes correntes podem continuar conforme autorizacao especifica;
-- novas evolucoes estruturais devem aguardar publicacao Git das mudancas
-  locais de institucionalizacao.
+- novas evolucoes estruturais exigem autorizacao propria.
 
 ## Projetos em Espera
 
@@ -95,7 +94,7 @@ nenhum projeto adicional em espera por nomenclatura historica
 Status:
 
 ```text
-ultima sincronizacao com GitHub em 2026-07-03; mudancas locais de institucionalizacao aguardam commit e push
+sincronizados com GitHub em 2026-07-03
 ```
 
 ## Workspaces Oficiais
@@ -155,16 +154,13 @@ nenhuma ADR estrutural minima pendente no escopo atual do IMP-001
   como padrao unico;
 - relatorios locais ainda existem como fila transitoria apos consolidacao;
 - documentos reais da VM154 ainda precisam ser classificados e consolidados;
-- alteracoes documentais das Etapas 2 a 6 ainda aguardam commit e push
-  futuro autorizados;
 - relatorios historicos preservam mencoes ao nome anterior como evidencia.
 
 ## Pendencias
 
-- executar commit e push controlado quando autorizado;
 - classificar e consolidar documentos reais da VM154 quando a governanca
   definir destino;
-- manter PROGRAM_STATUS atualizado apos a publicacao Git.
+- manter PROGRAM_STATUS atualizado em futuras atividades aprovadas.
 
 ## Ultima Atualizacao
 
@@ -183,5 +179,5 @@ Codex
 Motivo:
 
 ```text
-Atualizacao apos conclusao do IMP-001 Etapa 9 - Validacao final de institucionalizacao.
+Atualizacao apos publicacao oficial do IMP-001 nos repositorios institucionais.
 ```
