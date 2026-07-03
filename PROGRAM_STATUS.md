@@ -33,13 +33,13 @@ Aguardando autorizacao para Etapa 2 - ADRs estruturais minimas
 ## Ultima Etapa Concluida
 
 ```text
-IMP-001 - Etapa 1 - Institucionalizacao do Platform Workspace
+Sincronizacao institucional dos repositorios oficiais
 ```
 
-Relatorio:
+Observacao:
 
 ```text
-/home/emerson/platform/reports/REL-2026-07-03-imp-001-etapa-1-platform-workspace.md
+infra-standards, infra-runtime e infra-live-docs sincronizados com GitHub.
 ```
 
 ## Proxima Etapa
@@ -90,6 +90,12 @@ Observacao:
 - `infra-standards`
 - `infra-runtime`
 - `infra-live-docs`
+
+Status:
+
+```text
+sincronizados com GitHub em 2026-07-03
+```
 
 ## Workspaces Oficiais
 
@@ -143,9 +149,6 @@ ADRs pendentes previstas:
 ## Riscos Conhecidos
 
 - documentos recentes ainda estao em `/opt/projects`;
-- `infra-live-docs` ainda nao possui remote origin configurado;
-- `infra-runtime` possui commit local ainda nao publicado;
-- `infra-standards` possui commits locais ainda nao publicados;
 - standards antigos ainda citam `/opt/projects` sem distinguir VMs de
   Engenharia e VMs de Servico;
 - relatorios locais ainda carregam decisoes que precisam de promocao.
@@ -179,5 +182,5 @@ Codex
 Motivo:
 
 ```text
-Atualizacao apos implantacao do Platform Workspace na VM de Engenharia.
+Atualizacao apos sincronizacao institucional dos repositorios oficiais.
 ```
