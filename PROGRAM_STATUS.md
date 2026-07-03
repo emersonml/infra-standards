@@ -2,11 +2,11 @@
 
 ## Status Geral
 
-Institucionalizacao.
+Institucionalizacao validada localmente.
 
 ## Fase Atual
 
-Institucionalizacao da Plataforma.
+Institucionalizacao da Plataforma - validacao local concluida.
 
 ## Architecture Freeze
 
@@ -27,31 +27,31 @@ IMP-001
 ## Etapa Atual
 
 ```text
-Aguardando autorizacao para Etapa 2 - ADRs estruturais minimas
+Aguardando commit e push institucional autorizados
 ```
 
 ## Ultima Etapa Concluida
 
 ```text
-Sincronizacao institucional dos repositorios oficiais
+IMP-001 - Etapa 9 - Validacao final de institucionalizacao
 ```
 
 Observacao:
 
 ```text
-infra-standards, infra-runtime e infra-live-docs sincronizados com GitHub.
+Institucionalizacao validada localmente; publicacao Git ainda pendente de autorizacao.
 ```
 
 ## Proxima Etapa
 
 ```text
-IMP-001 - Etapa 2 - ADRs estruturais minimas
+Commit e push controlado das alteracoes de institucionalizacao
 ```
 
 Status:
 
 ```text
-Aguardando autorizacao explicita
+Aguardando autorizacao explicita para Git
 ```
 
 ## Projetos Liberados
@@ -63,25 +63,26 @@ nenhum projeto novo liberado por este status
 Observacao:
 
 - operacoes correntes podem continuar conforme autorizacao especifica;
-- novas evolucoes estruturais aguardam institucionalizacao.
+- novas evolucoes estruturais devem aguardar publicacao Git das mudancas
+  locais de institucionalizacao.
 
 ## Projetos em Espera
 
-- migracao da VM154 para Platform Workspace;
-- atualizacao dos prompts-base;
-- incorporacao definitiva de TechBase ao Projeto Colegio Intensivo;
-- promocao documental de `PLATFORM_ARCHITECTURE.md`;
-- promocao documental de `WORKSPACE_STANDARD.md`.
+```text
+nenhum projeto adicional em espera por nomenclatura historica
+```
 
 ## Decisoes Arquiteturais Vigentes
 
 - Architecture Freeze ativo.
+- Platform Architecture como indice mestre da plataforma.
 - Platform Workspace para VMs de Engenharia.
 - Operational Workspace para VMs de Servico.
 - Personal Workspace fora da plataforma.
 - Workspace como camada oficial da arquitetura.
 - Principio do Privilegio Temporario.
 - Relatorios locais como area transitoria.
+- Promocao de relatorios oficiais para `infra-live-docs`.
 - Documentacao viva em `infra-live-docs`.
 - Git sem push sem autorizacao.
 
@@ -94,7 +95,7 @@ Observacao:
 Status:
 
 ```text
-sincronizados com GitHub em 2026-07-03
+ultima sincronizacao com GitHub em 2026-07-03; mudancas locais de institucionalizacao aguardam commit e push
 ```
 
 ## Workspaces Oficiais
@@ -138,32 +139,32 @@ ADRs oficiais aprovadas:
 - `0008-ai-agent-governance`
 - `0009-administrative-access-model`
 - `0010-bootstrap-documentation-and-reports`
+- `0011-platform-architecture-master-index`
+- `0012-platform-workspace-vs-operational-workspace`
+- `0013-reports-and-live-docs-promotion-policy`
 
 ADRs pendentes previstas:
 
-- Platform Architecture as Master Index.
-- Platform Workspace vs Operational Workspace.
-- Reports and Live Docs Promotion Policy, se nao for absorvida por
-  Documentation Standard.
+```text
+nenhuma ADR estrutural minima pendente no escopo atual do IMP-001
+```
 
 ## Riscos Conhecidos
 
-- documentos recentes ainda estao em `/opt/projects`;
-- standards antigos ainda citam `/opt/projects` sem distinguir VMs de
-  Engenharia e VMs de Servico;
-- relatorios locais ainda carregam decisoes que precisam de promocao.
+- documentos historicos fora de `standards/` ainda podem citar `/opt/projects`
+  como padrao unico;
+- relatorios locais ainda existem como fila transitoria apos consolidacao;
+- documentos reais da VM154 ainda precisam ser classificados e consolidados;
+- alteracoes documentais das Etapas 2 a 6 ainda aguardam commit e push
+  futuro autorizados;
+- relatorios historicos preservam mencoes ao nome anterior como evidencia.
 
 ## Pendencias
 
-- autorizar IMP-001 Etapa 2;
-- criar ADRs estruturais minimas;
-- promover `PLATFORM_ARCHITECTURE.md`;
-- promover `WORKSPACE_STANDARD.md`;
-- reconciliar standards existentes;
-- consolidar relatorios oficiais no `infra-live-docs`;
-- planejar e executar migracao da VM154;
-- atualizar prompts-base;
-- incorporar TechBase ao Projeto Colegio Intensivo.
+- executar commit e push controlado quando autorizado;
+- classificar e consolidar documentos reais da VM154 quando a governanca
+  definir destino;
+- manter PROGRAM_STATUS atualizado apos a publicacao Git.
 
 ## Ultima Atualizacao
 
@@ -182,5 +183,5 @@ Codex
 Motivo:
 
 ```text
-Atualizacao apos sincronizacao institucional dos repositorios oficiais.
+Atualizacao apos conclusao do IMP-001 Etapa 9 - Validacao final de institucionalizacao.
 ```

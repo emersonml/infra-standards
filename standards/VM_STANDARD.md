@@ -4,9 +4,42 @@
 
 Padronizar a organizacao minima de VMs da infraestrutura.
 
-## Estrutura obrigatoria
+## Tipos de workspace
 
-Toda VM deve possuir:
+VMs de Engenharia usam Platform Workspace:
+
+```text
+/home/emerson/platform
+```
+
+VMs de Servico usam Operational Workspace:
+
+```text
+/opt/projects
+```
+
+Diretorios pessoais como `~/Downloads`, `~/Desktop` e `~/Documents` nao fazem
+parte da plataforma.
+
+## Estrutura obrigatoria para VMs de Engenharia
+
+VMs de Engenharia devem possuir:
+
+```text
+/home/emerson/platform
+/home/emerson/platform/infra-standards
+/home/emerson/platform/infra-runtime
+/home/emerson/platform/infra-live-docs
+/home/emerson/platform/workspace
+/home/emerson/platform/reports
+/home/emerson/platform/inbox
+/home/emerson/platform/scratch
+/home/emerson/platform/README.md
+```
+
+## Estrutura obrigatoria para VMs de Servico
+
+VMs de Servico devem possuir:
 
 ```text
 /opt/projects
@@ -43,11 +76,18 @@ Cada VM deve documentar:
 Relatorios operacionais devem ficar em:
 
 ```text
-/opt/projects/reports
+reports
 ```
 
-Relatorios registram execucao e evidencia. Eles nao substituem `HOST.md`,
-`.docs/` ou `infra-standards`.
+Regra:
+
+- em VMs de Engenharia, `reports` fica em `/home/emerson/platform/reports`;
+- em VMs de Servico, `reports` fica em `/opt/projects/reports`;
+- relatorios locais registram execucao e evidencia;
+- relatorios locais sao transitorios ate consolidacao oficial em
+  `infra-live-docs`;
+- relatorios nao substituem `HOST.md`, `.docs/`, `infra-standards` ou
+  `infra-live-docs`.
 
 ## Padroes de sistema
 
@@ -94,19 +134,25 @@ Classificacao:
 - Procedimento
 - Padrao
 
-Bootstrap minimo:
+Bootstrap minimo de VM de Servico:
 
 ```text
 Base VM > Identity > SSH > /opt/projects > Documentation > NFS > Docker > Snapshot > Report
+```
+
+Bootstrap minimo de VM de Engenharia:
+
+```text
+Base VM > Identity > SSH > /home/emerson/platform > Repositories > README > PROGRAM_STATUS > Report
 ```
 
 Saidas obrigatorias:
 
 - usuarios e grupos padrao avaliados;
 - SSH validado;
-- `/opt/projects` criado;
+- workspace oficial criado conforme tipo da VM;
 - documentacao viva criada;
-- `/opt/projects/reports` criado;
+- diretorio local de relatorios criado;
 - NFS validado quando aplicavel;
 - Docker validado quando aplicavel;
 - snapshot recomendado ou criado conforme risco;

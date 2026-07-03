@@ -96,8 +96,16 @@ Rules:
 For relevant interventions, agents must generate an operational report under:
 
 ```text
-/opt/projects/reports/
+reports/
 ```
+
+Rules:
+
+- in Platform Workspace, reports are written under
+  `/home/emerson/platform/reports/`;
+- in Operational Workspace, reports are written under `/opt/projects/reports/`;
+- local reports are transitional until explicit consolidation into
+  `infra-live-docs`.
 
 Report filename:
 

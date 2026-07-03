@@ -4,13 +4,21 @@
 
 Padronizar o uso de Docker nas VMs da infraestrutura.
 
-## Padrao de diretorios
+## Padrao de diretorios para VMs de Servico
 
 Codigo e configuracao:
 
 ```text
 /opt/projects
 ```
+
+Regra:
+
+- `/opt/projects` e o Operational Workspace das VMs de Servico;
+- stacks Docker permanentes devem manter compose e configuracao operacional
+  nesse workspace;
+- Platform Workspace de VMs de Engenharia nao e destino padrao para stacks de
+  servico.
 
 Persistencia Docker:
 
@@ -28,7 +36,7 @@ Artefatos:
 
 - Usar Docker Compose para stacks.
 - Nao usar `docker run` para componentes permanentes de stack.
-- Manter arquivos Compose em `/opt/projects`.
+- Manter arquivos Compose de VMs de Servico em `/opt/projects`.
 - Manter dados persistentes em `/mnt/nfs/docker/volumes`.
 - Nao gravar bancos de dados em disco local da VM sem autorizacao explicita.
 - Nao atualizar imagens durante migracao, salvo plano especifico.

@@ -15,6 +15,32 @@ Definir o padrao de documentacao tecnica da infraestrutura.
 
 ## Separacao de escopo
 
+Estado oficial resumido da plataforma:
+
+```text
+infra-standards/PROGRAM_STATUS.md
+```
+
+Finalidade:
+
+- informar fase atual;
+- informar plano ativo;
+- informar etapa atual;
+- registrar riscos e pendencias vigentes;
+- contextualizar rapidamente agentes humanos e IA.
+
+Indice arquitetural da plataforma:
+
+```text
+infra-standards/PLATFORM_ARCHITECTURE.md
+```
+
+Finalidade:
+
+- conectar os padroes existentes;
+- orientar o fluxo de leitura;
+- evitar duplicacao de conteudo tecnico dos standards.
+
 Repositorio de padroes:
 
 ```text
@@ -28,7 +54,20 @@ Finalidade:
 - decisoes reutilizaveis;
 - roadmap de padronizacao.
 
-Documentacao viva da VM:
+Workspace de VMs de Engenharia:
+
+```text
+/home/emerson/platform
+```
+
+Finalidade:
+
+- concentrar repositorios institucionais;
+- fornecer onboarding oficial por `README.md`;
+- manter areas locais transitorias como `workspace`, `reports`, `inbox` e
+  `scratch`.
+
+Documentacao viva de VMs de Servico:
 
 ```text
 /opt/projects/HOST.md
@@ -46,7 +85,7 @@ Finalidade:
 Relatorios operacionais:
 
 ```text
-/opt/projects/reports/
+reports/
 ```
 
 Finalidade:
@@ -59,10 +98,13 @@ Finalidade:
 
 Regra:
 
+- relatorio operacional local e transitorio;
 - relatorio operacional nao e fonte oficial de arquitetura;
 - relatorio operacional nao substitui `HOST.md` ou `.docs/`;
 - decisao permanente descoberta em relatorio deve ser promovida para ADR,
   Standard ou Template quando aprovada.
+- relatorio oficial torna-se institucional somente depois de consolidado em
+  `infra-live-docs`.
 
 Classificacao:
 
@@ -102,11 +144,13 @@ Discovery > Documentation > Artifacts > Pre-flight > Migration > Validation > Cu
 Hierarquia oficial:
 
 ```text
-PHILOSOPHY > ARCHITECTURE > LIFECYCLE > REQUESTS (RFC) > DECISION RECORDS (ADR) > STANDARDS > TEMPLATES > VM DOCUMENTATION > SERVICES
+PROGRAM_STATUS > PLATFORM_ARCHITECTURE > PHILOSOPHY > ARCHITECTURE > LIFECYCLE > REQUESTS (RFC) > DECISION RECORDS (ADR) > STANDARDS > TEMPLATES > VM DOCUMENTATION > SERVICES
 ```
 
 Responsabilidades:
 
+- `PROGRAM_STATUS.md`: estado oficial resumido.
+- `PLATFORM_ARCHITECTURE.md`: indice arquitetural da plataforma.
 - `PHILOSOPHY.md`: principios permanentes.
 - `ARCHITECTURE.md`: visao macro e governanca.
 - `LIFECYCLE.md`: ciclo de vida padrao das VMs.
@@ -122,9 +166,22 @@ Regra:
 - Documentos de nivel inferior nunca podem contrariar documentos de nivel superior.
 - Quando houver conflito, o documento inferior deve ser corrigido ou uma RFC deve propor mudanca no nivel superior.
 
-## Documentos minimos por VM
+## Documentos minimos por tipo de VM
 
-Toda VM deve possuir:
+VMs de Engenharia devem possuir Platform Workspace:
+
+```text
+/home/emerson/platform/README.md
+/home/emerson/platform/infra-standards/
+/home/emerson/platform/infra-runtime/
+/home/emerson/platform/infra-live-docs/
+/home/emerson/platform/workspace/
+/home/emerson/platform/reports/
+/home/emerson/platform/inbox/
+/home/emerson/platform/scratch/
+```
+
+VMs de Servico devem possuir Operational Workspace:
 
 ```text
 /opt/projects/HOST.md
@@ -138,8 +195,14 @@ Toda VM deve possuir:
 Diretorio minimo de relatorios:
 
 ```text
-/opt/projects/reports/
+reports/
 ```
+
+Regra:
+
+- em Platform Workspace, `reports/` fica sob `/home/emerson/platform`;
+- em Operational Workspace, `reports/` fica sob `/opt/projects`;
+- ambos sao areas locais transitorias ate consolidacao oficial.
 
 ## Operational Report Policy
 
@@ -165,6 +228,13 @@ Template:
 ```text
 templates/OPERATIONAL_REPORT_TEMPLATE.md
 ```
+
+Official consolidation:
+
+- local reports are transitional by default;
+- official live reports belong in `infra-live-docs` after explicit
+  consolidation;
+- local reports must not replace ADRs, standards or live docs.
 
 ## Git Documentation Policy
 
