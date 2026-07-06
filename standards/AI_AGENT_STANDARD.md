@@ -30,6 +30,28 @@ Standard groups:
 - `infra-admin`
 - `_ssh`
 
+## Official Responsibility Chain
+
+Official flow:
+
+```text
+Emerson
+ |
+ v
+Codex
+ |
+ v
+Claude
+```
+
+Responsibilities:
+
+- Emerson remains the Chief Architect and final authority.
+- Codex is responsible for architecture, planning, security, governance and
+  privilege preparation.
+- Claude is responsible for engineering execution inside the permission boundary
+  prepared by Codex.
+
 ## Authority Model
 
 Rules:
@@ -41,6 +63,8 @@ Rules:
 - AI agents must not alter production infrastructure without an approved plan.
 - AI agents must not change scripts, bootstrap or automation when the task is
   documentation-only.
+- Codex controls privilege preparation during approved Just-In-Time windows.
+- Claude must not expand its own privileges or alter sudoers by initiative.
 
 ## Access Model
 
@@ -52,6 +76,47 @@ Rules:
 - sudo for agents must be documented;
 - temporary sudo for bootstrap must be removed, reduced or justified after use;
 - private keys must not be shared between human and agent users.
+- permanent sudo for agents must not exist for convenience;
+- privilege grants for agents must follow the Least Privilege and Just-In-Time
+  Privilege model.
+
+Detailed privilege governance is defined in:
+
+```text
+standards/PRIVILEGE_GOVERNANCE_STANDARD.md
+```
+
+## Codex Privilege Controller Role
+
+Codex is the platform privilege controller for approved preparation work.
+
+Responsibilities:
+
+- prepare directories, ownership, groups, ACLs and sudo policies;
+- validate security before delegating execution;
+- document permissions granted to Claude;
+- revoke its own temporary privileges after preparation;
+- avoid installing or operating services when the work can be delegated to
+  Claude.
+
+Codex must not remain a permanent administrator for convenience.
+
+## Claude Execution Role
+
+Claude is the engineering execution agent.
+
+Responsibilities:
+
+- install applications;
+- run Docker Compose;
+- configure services;
+- execute migrations and operational procedures approved by Emerson.
+
+Rules:
+
+- Claude must use only permissions prepared by Codex;
+- Claude must stop when a task requires privileges not granted;
+- Claude must not alter sudoers, groups or its own administrative authority.
 
 ## Operating Flow
 
@@ -69,6 +134,9 @@ Rules:
 - update local VM documentation when operational state changes;
 - update `infra-standards` only when a reusable rule or permanent decision
   changes.
+- when privileges are required, run the additional flow:
+  `Authorization > Codex preparation > Codex revocation > Claude execution >
+  Codex review`.
 
 ## Repeated Attempt Policy
 

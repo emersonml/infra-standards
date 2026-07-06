@@ -189,6 +189,25 @@ Documento de referencia:
 /home/emerson/platform/infra-standards/standards/SECURITY_STANDARD.md
 ```
 
+### Privilege Governance Standard
+
+Objetivo:
+
+- definir Least Privilege, Just-In-Time Privilege e a separacao entre Codex
+  como controlador de privilegios e Claude como executor tecnico.
+
+Responsabilidade:
+
+- orientar concessao temporaria de privilegios, revogacao, preparacao de
+  ambiente, delegacao de execucao e validacao de seguranca.
+
+Documento de referencia:
+
+```text
+/home/emerson/platform/infra-standards/standards/PRIVILEGE_GOVERNANCE_STANDARD.md
+/home/emerson/platform/infra-standards/decision-records/0014-ai-agent-jit-privilege-model.md
+```
+
 ### Network Standard
 
 Objetivo:
@@ -514,7 +533,8 @@ Registra estado real, evidencias, inventario e historico operacional.
    - Change Governance;
    - Git Governance;
    - Documentation Governance;
-   - Identity Governance.
+- Identity Governance.
+  - Privilege Governance.
 6. Criar indice oficial de relatorios no `infra-live-docs`.
 
 ## Capitulo 9 - Dependencias entre os documentos
@@ -534,6 +554,7 @@ PLATFORM_ARCHITECTURE
  |    +-- VM_STANDARD
  |    +-- NETWORK_STANDARD
  |    +-- SECURITY_STANDARD
+ |    +-- PRIVILEGE_GOVERNANCE_STANDARD
  |
  +-- DOCUMENTATION_STANDARD
  |    |
@@ -590,4 +611,3 @@ agente de IA depois do `README.md` do workspace.
 
 Ele e um mapa geral da plataforma. Detalhes tecnicos pertencem aos padroes,
 ADRs, runtime e documentacao viva correspondentes.
-

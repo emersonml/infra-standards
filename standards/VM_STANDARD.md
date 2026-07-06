@@ -58,6 +58,31 @@ Documentos minimos:
 /opt/projects/.docs/TODO.md
 ```
 
+## Perfil shell obrigatorio para VMs de Servico
+
+VMs de Servico devem possuir os seguintes aliases no `.bashrc` do usuario
+operacional `emerson`:
+
+```bash
+alias ll='ls -la'
+alias ppp='cd /opt/projects'
+alias vvv='cd /mnt/nfs/docker/volumes'
+```
+
+Finalidade:
+
+- `ll`: listar arquivos com detalhes, incluindo arquivos ocultos;
+- `ppp`: acessar rapidamente o Operational Workspace da VM;
+- `vvv`: acessar rapidamente o diretorio padrao de volumes Docker persistentes.
+
+Regras:
+
+- os aliases devem ser aplicados apenas em VMs de Servico;
+- VMs de Engenharia seguem o padrao do Platform Workspace;
+- a ausencia de `/mnt/nfs/docker/volumes` deve ser registrada como pendencia
+  operacional quando a VM utilizar Docker com volumes persistentes;
+- novas VMs de Servico devem receber esses aliases durante o bootstrap.
+
 ## Responsabilidade da documentacao viva
 
 Cada VM deve documentar:
@@ -137,20 +162,23 @@ Classificacao:
 Bootstrap minimo de VM de Servico:
 
 ```text
-Base VM > Identity > SSH > /opt/projects > Documentation > NFS > Docker > Snapshot > Report
+Base VM > Identity > SSH > Privilege Governance > /opt/projects > Documentation > NFS > Docker > Snapshot > Report
 ```
 
 Bootstrap minimo de VM de Engenharia:
 
 ```text
-Base VM > Identity > SSH > /home/emerson/platform > Repositories > README > PROGRAM_STATUS > Report
+Base VM > Identity > SSH > Privilege Governance > /home/emerson/platform > Repositories > README > PROGRAM_STATUS > Report
 ```
 
 Saidas obrigatorias:
 
 - usuarios e grupos padrao avaliados;
 - SSH validado;
+- modelo de privilegio minimo validado;
+- ausencia de sudo permanente para agentes validada ou justificada;
 - workspace oficial criado conforme tipo da VM;
+- aliases obrigatorios do `.bashrc` aplicados quando VM de Servico;
 - documentacao viva criada;
 - diretorio local de relatorios criado;
 - NFS validado quando aplicavel;
@@ -178,3 +206,27 @@ Repositorio:
 VM:
 
 - estado real e operacional.
+
+## Governanca de privilegios em novas VMs
+
+Novas VMs devem seguir o modelo oficial:
+
+```text
+Emerson autoriza > Codex prepara > Codex revoga > Claude executa
+```
+
+Regras:
+
+- `codex-infra` nao deve manter sudo permanente por conveniencia;
+- `claude-infra` nao deve poder alterar sudoers ou ampliar seus proprios
+  privilegios;
+- permissoes operacionais devem ser concedidas por grupo, ACL ou sudoers
+  limitado, conforme a tarefa;
+- excecoes devem ser documentadas em `HOST.md`, `.docs/DECISIONS.md` e
+  relatorio operacional quando aplicavel.
+
+Referencia:
+
+```text
+standards/PRIVILEGE_GOVERNANCE_STANDARD.md
+```

@@ -72,6 +72,7 @@ standards/
   GIT_STANDARD.md
   DOCKER_STANDARD.md
   NFS_STANDARD.md
+  PRIVILEGE_GOVERNANCE_STANDARD.md
   SSH_STANDARD.md
   VM_STANDARD.md
   SECURITY_STANDARD.md
@@ -98,6 +99,10 @@ decision-records/
   0008-ai-agent-governance.md
   0009-administrative-access-model.md
   0010-bootstrap-documentation-and-reports.md
+  0011-platform-architecture-master-index.md
+  0012-platform-workspace-vs-operational-workspace.md
+  0013-reports-and-live-docs-promotion-policy.md
+  0014-ai-agent-jit-privilege-model.md
 
 requests/
   README.md
@@ -277,4 +282,7 @@ migracoes se conectam.
 - Grupos padrao: `infra-admin` para administracao e `_ssh` para login SSH.
 - Acesso remoto deve preferir Bastion e ProxyJump quando houver segmentacao.
 - Bootstrap institucional pode usar sudo temporario, removido ao final.
+- Codex e controlador temporario de privilegios em janelas autorizadas.
+- Claude executa apenas com permissoes previamente preparadas.
+- Least Privilege e Just-In-Time Privilege sao principios oficiais.
 - Relatorios operacionais ficam separados da documentacao oficial.

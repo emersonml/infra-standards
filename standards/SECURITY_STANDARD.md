@@ -22,6 +22,45 @@ Definir requisitos minimos de seguranca operacional.
 - Login direto como root deve ser bloqueado por SSH.
 - Grupos administrativos devem ser documentados.
 - Permissoes de arquivos devem ser restritivas por padrao.
+- Agentes devem possuir apenas as permissoes necessarias para a tarefa
+  aprovada.
+- Nenhum privilegio permanente deve existir apenas por conveniencia.
+- Privilegios temporarios devem ser revogados ao final da tarefa.
+
+## Just-In-Time Privilege
+
+Classificacao:
+
+- Arquitetura
+- Governanca
+- Padrao
+- Seguranca
+
+Regra:
+
+```text
+Emerson autoriza > Codex prepara privilegios > Codex revoga privilegios
+temporarios > Claude executa > Codex valida
+```
+
+Regras:
+
+- Codex pode receber acesso administrativo temporario apenas com autorizacao
+  explicita de Emerson;
+- Codex deve preparar diretorios, ownership, grupos, ACLs e sudoers quando
+  necessario;
+- Codex deve remover seus proprios privilegios temporarios antes de delegar a
+  execucao ao Claude;
+- Claude deve executar somente com permissoes previamente preparadas;
+- Claude nao deve alterar sudoers, grupos administrativos ou seus proprios
+  privilegios;
+- o estado final deve retornar ao minimo de privilegios necessario.
+
+Documento de referencia:
+
+```text
+standards/PRIVILEGE_GOVERNANCE_STANDARD.md
+```
 
 ## Controle de acesso administrativo
 
@@ -49,6 +88,8 @@ Regras:
 - sudo permanente para agentes exige justificativa documentada;
 - sudo temporario para bootstrap deve ser removido ou reduzido ao final;
 - alteracoes em SSH, sudo ou grupos exigem rollback documentado.
+- Codex e o controlador de privilegios durante janelas Just-In-Time aprovadas;
+- Claude e o executor tecnico e nao deve ampliar seus proprios privilegios.
 
 ## Politica de Bastion
 

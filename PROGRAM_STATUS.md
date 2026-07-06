@@ -80,6 +80,10 @@ nenhum projeto adicional em espera por nomenclatura historica
 - Personal Workspace fora da plataforma.
 - Workspace como camada oficial da arquitetura.
 - Principio do Privilegio Temporario.
+- Least Privilege como principio oficial para agentes de IA.
+- Just-In-Time Privilege como modelo oficial de elevacao temporaria.
+- Codex como controlador de privilegios da plataforma.
+- Claude como executor tecnico dentro de permissoes preparadas.
 - Relatorios locais como area transitoria.
 - Promocao de relatorios oficiais para `infra-live-docs`.
 - Documentacao viva em `infra-live-docs`.
@@ -120,6 +124,7 @@ Operational Workspace:
 - `GIT_STANDARD.md`
 - `NETWORK_STANDARD.md`
 - `NFS_STANDARD.md`
+- `PRIVILEGE_GOVERNANCE_STANDARD.md`
 - `SECURITY_STANDARD.md`
 - `SSH_STANDARD.md`
 - `VM_STANDARD.md`
@@ -141,6 +146,7 @@ ADRs oficiais aprovadas:
 - `0011-platform-architecture-master-index`
 - `0012-platform-workspace-vs-operational-workspace`
 - `0013-reports-and-live-docs-promotion-policy`
+- `0014-ai-agent-jit-privilege-model`
 
 ADRs pendentes previstas:
 
@@ -167,7 +173,7 @@ nenhuma ADR estrutural minima pendente no escopo atual do IMP-001
 Data:
 
 ```text
-2026-07-03
+2026-07-06
 ```
 
 Responsavel:
@@ -179,5 +185,5 @@ Codex
 Motivo:
 
 ```text
-Atualizacao apos publicacao oficial do IMP-001 nos repositorios institucionais.
+Registro da governanca Just-In-Time de privilegios para agentes de IA.
 ```

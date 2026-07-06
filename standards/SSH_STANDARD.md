@@ -95,6 +95,17 @@ Regras:
 - `infra-admin` controla elegibilidade administrativa.
 - um usuario pode ter SSH sem sudo;
 - um agente nao deve receber privilegio maior que o necessario.
+- Codex pode receber privilegio administrativo temporario apenas em janela
+  Just-In-Time aprovada.
+- Claude nao deve alterar sudoers, grupos administrativos ou seus proprios
+  privilegios.
+- privilegios temporarios devem ser revogados ao final da tarefa.
+
+Modelo de privilegio detalhado:
+
+```text
+standards/PRIVILEGE_GOVERNANCE_STANDARD.md
+```
 
 ## Bastion e ProxyJump
 

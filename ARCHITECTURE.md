@@ -49,8 +49,9 @@ Layers:
 
 - GitHub stores global standards and templates.
 - Emerson is the human operator and final authority for infrastructure changes.
-- AI agents read standards, update documentation, execute approved procedures and
-  produce reports.
+- Codex governs architecture, security, planning and privilege preparation.
+- Claude executes approved engineering procedures inside the prepared
+  permission boundary.
 - Infrastructure VMs implement the standards according to their role.
 - NFS stores persistent data and recovery artifacts.
 - OMV is responsible for definitive second-disk backup.
@@ -68,8 +69,8 @@ The infrastructure supports assisted operation by AI agents.
 Roles:
 
 - `emerson`: human operator and owner of final authorization.
-- `codex-infra`: Codex operational agent identity.
-- `claude-infra`: Claude operational agent identity.
+- `codex-infra`: Codex governance and privilege preparation identity.
+- `claude-infra`: Claude engineering execution identity.
 
 Rules:
 
@@ -80,11 +81,14 @@ Rules:
   operation.
 - AI agents must document permanent decisions in the correct standards layer.
 - AI agents must write operational reports for relevant interventions.
+- Codex prepares privileges and environment before delegating execution.
+- Claude executes only within the permission boundary prepared by Codex.
 
 Detailed rules are defined in:
 
 ```text
 standards/AI_AGENT_STANDARD.md
+standards/PRIVILEGE_GOVERNANCE_STANDARD.md
 ```
 
 ## Access Architecture
@@ -114,6 +118,54 @@ Rules:
 - Sudo privileges for agents must be scoped, documented and removable.
 - Temporary sudo during bootstrap is allowed only for institutional bootstrap
   and must be removed or reduced after validation.
+- Privileges for agents follow Least Privilege and Just-In-Time Privilege.
+- Codex may receive temporary administrative authority only for approved
+  preparation work.
+- Claude must not alter sudoers, groups or its own privilege level.
+
+## Privilege Governance Architecture
+
+Classification:
+
+- Arquitetura
+- Governanca
+- Padrao
+- Seguranca
+
+Official flow:
+
+```text
+Emerson authorizes
+ |
+ v
+Codex prepares privilege boundary
+ |
+ v
+Codex revokes temporary privilege
+ |
+ v
+Claude executes
+ |
+ v
+Codex validates and documents
+```
+
+Rules:
+
+- Codex is a temporary administrator, not a permanent administrator.
+- Codex prepares directories, ownership, groups, ACLs, sudoers and execution
+  policy when authorized.
+- Claude performs service installation, compose execution, configuration and
+  migration using prepared permissions.
+- Runtime automation for grants, revocation and validation belongs in
+  `infra-runtime`.
+
+Reference:
+
+```text
+standards/PRIVILEGE_GOVERNANCE_STANDARD.md
+decision-records/0014-ai-agent-jit-privilege-model.md
+```
 
 ## Bastion and ProxyJump Model
 

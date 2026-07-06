@@ -24,6 +24,9 @@ must be reasoned about, changed, documented and governed.
 - Publish remote changes only with clear criteria.
 - Human authority remains separate from AI agent execution.
 - Official documentation remains separate from operational reports.
+- Codex prepares and governs privileges; Claude executes within prepared
+  boundaries.
+- Least Privilege and Just-In-Time Privilege are default security principles.
 
 ## Engineering Principles
 
@@ -63,6 +66,8 @@ must be reasoned about, changed, documented and governed.
 - Secrets must not be stored in documentation.
 - Private keys must not be committed.
 - Public exposure must be intentional and documented.
+- No AI agent should keep permanent administrative privilege for convenience.
+- Temporary privilege must be authorized, documented, validated and revoked.
 
 ## Automation Principles
 
@@ -73,6 +78,7 @@ must be reasoned about, changed, documented and governed.
 - Automation must not hide destructive actions.
 - Automation must follow the same evidence and rollback rules as manual work.
 - AI agents must stop and ask before repeated failed attempts on the same task.
+- Privilege automation must be idempotent, auditable and reversible.
 
 ## Operational Principles
 
@@ -86,6 +92,8 @@ must be reasoned about, changed, documented and governed.
 - Remote push publishes official repository state.
 - Snapshots protect rollback for structural or risky changes.
 - Temporary sudo is allowed for bootstrap only when documented and removed or reduced after use.
+- Codex may receive temporary administrative privilege to prepare an approved
+  task, but must reduce its own privilege surface before delegating execution.
 
 ## Decision Principles
 
