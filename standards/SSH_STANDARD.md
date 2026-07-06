@@ -87,19 +87,25 @@ Usuarios padrao:
 Grupos padrao:
 
 - `_ssh`: autorizado a autenticar via SSH.
-- `infra-admin`: autorizado para administracao conforme politica de sudo.
+- `infra-collab`: autorizado para colaboracao em projetos e arquivos
+  operacionais.
+- `infra-architect`: papel funcional de arquitetura e preparacao.
+- `infra-engineer`: papel funcional de engenharia e execucao.
+- `infra-audit`: papel futuro de leitura e auditoria.
 
 Regras:
 
 - `_ssh` controla login SSH.
-- `infra-admin` controla elegibilidade administrativa.
+- grupos de papel nao concedem sudo por si so;
+- `infra-admin` e legado e nao deve ser usado como novo padrao de autoridade;
 - um usuario pode ter SSH sem sudo;
-- um agente nao deve receber privilegio maior que o necessario.
+- um agente nao deve receber privilegio maior que o necessario;
 - Codex pode receber privilegio administrativo temporario apenas em janela
-  Just-In-Time aprovada.
+  Just-In-Time aprovada e mediada pelo Policy Broker;
 - Claude nao deve alterar sudoers, grupos administrativos ou seus proprios
-  privilegios.
-- privilegios temporarios devem ser revogados ao final da tarefa.
+  privilegios;
+- privilegios temporarios devem ser revogados ao final da tarefa;
+- SSH autentica identidade; o Policy Broker materializa privilegio temporario.
 
 Modelo de privilegio detalhado:
 

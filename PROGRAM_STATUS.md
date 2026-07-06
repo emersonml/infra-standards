@@ -82,7 +82,13 @@ nenhum projeto adicional em espera por nomenclatura historica
 - Principio do Privilegio Temporario.
 - Least Privilege como principio oficial para agentes de IA.
 - Just-In-Time Privilege como modelo oficial de elevacao temporaria.
-- Codex como controlador de privilegios da plataforma.
+- RBAC funcional para agentes de IA.
+- Policy Broker como camada oficial de materializacao de privilegios
+  temporarios.
+- `infra-collab` como grupo de colaboracao sem autoridade administrativa.
+- `infra-admin` como legado, nao como novo padrao de autoridade.
+- Codex como controlador de governanca e preparacao de privilegios da
+  plataforma.
 - Claude como executor tecnico dentro de permissoes preparadas.
 - Relatorios locais como area transitoria.
 - Promocao de relatorios oficiais para `infra-live-docs`.
@@ -147,6 +153,7 @@ ADRs oficiais aprovadas:
 - `0012-platform-workspace-vs-operational-workspace`
 - `0013-reports-and-live-docs-promotion-policy`
 - `0014-ai-agent-jit-privilege-model`
+- `0015-role-based-agent-privilege-model`
 
 ADRs pendentes previstas:
 
@@ -185,5 +192,6 @@ Codex
 Motivo:
 
 ```text
-Registro da governanca Just-In-Time de privilegios para agentes de IA.
+Registro do modelo RBAC funcional com Policy Broker para governanca de
+privilegios de agentes de IA.
 ```

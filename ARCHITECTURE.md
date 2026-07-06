@@ -83,6 +83,9 @@ Rules:
 - AI agents must write operational reports for relevant interventions.
 - Codex prepares privileges and environment before delegating execution.
 - Claude executes only within the permission boundary prepared by Codex.
+- Agent privileges are assigned to platform roles, not directly to users.
+- The Policy Broker is the official mechanism for materializing temporary
+  privileges.
 
 Detailed rules are defined in:
 
@@ -107,21 +110,28 @@ Standard administrative identities:
 
 Standard groups:
 
-- `infra-admin`: users authorized for administrative tasks.
 - `_ssh`: users authorized for SSH login.
+- `infra-collab`: collaborative ownership for projects, documentation and
+  operational files.
+- `infra-architect`: Codex role for architecture, preparation and governance.
+- `infra-engineer`: Claude role for engineering execution.
+- `infra-audit`: future read-only audit role.
 
 Rules:
 
 - SSH login and administrative privilege are separate controls.
 - Membership in `_ssh` allows SSH access only.
-- Membership in `infra-admin` identifies administrative authorization.
-- Sudo privileges for agents must be scoped, documented and removable.
+- Membership in role groups identifies functional eligibility, not direct sudo.
+- `infra-admin` is legacy and must not be used as the new authority model.
+- Sudo privileges for agents must be brokered, scoped, documented and
+  removable.
 - Temporary sudo during bootstrap is allowed only for institutional bootstrap
-  and must be removed or reduced after validation.
+  and must be mediated, removed or reduced after validation.
 - Privileges for agents follow Least Privilege and Just-In-Time Privilege.
 - Codex may receive temporary administrative authority only for approved
   preparation work.
 - Claude must not alter sudoers, groups or its own privilege level.
+- Collaboration must use `infra-collab`, not administrative authority.
 
 ## Privilege Governance Architecture
 
@@ -138,6 +148,9 @@ Official flow:
 Emerson authorizes
  |
  v
+Policy Broker materializes approved temporary privilege
+ |
+ v
 Codex prepares privilege boundary
  |
  v
@@ -147,16 +160,22 @@ Codex revokes temporary privilege
 Claude executes
  |
  v
+Policy Broker revokes task privileges
+ |
+ v
 Codex validates and documents
 ```
 
 Rules:
 
 - Codex is a temporary administrator, not a permanent administrator.
-- Codex prepares directories, ownership, groups, ACLs, sudoers and execution
-  policy when authorized.
+- Codex prepares directories, ownership, groups, ACLs and execution policy when
+  authorized.
+- Codex does not edit `/etc/sudoers` or `/etc/sudoers.d` directly.
+- The Policy Broker mediates temporary privilege grants and revocation.
 - Claude performs service installation, compose execution, configuration and
   migration using prepared permissions.
+- Claude never changes users, groups, sudoers or its own privilege level.
 - Runtime automation for grants, revocation and validation belongs in
   `infra-runtime`.
 
@@ -165,6 +184,7 @@ Reference:
 ```text
 standards/PRIVILEGE_GOVERNANCE_STANDARD.md
 decision-records/0014-ai-agent-jit-privilege-model.md
+decision-records/0015-role-based-agent-privilege-model.md
 ```
 
 ## Bastion and ProxyJump Model

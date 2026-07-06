@@ -22,8 +22,12 @@ Ultima atualizacao: YYYY-MM-DD
 - Operador humano: emerson
 - Agente Codex: codex-infra
 - Agente Claude: claude-infra
-- Grupo administrativo: infra-admin
 - Grupo SSH: _ssh
+- Grupo colaborativo: infra-collab
+- Grupo arquitetura: infra-architect
+- Grupo engenharia: infra-engineer
+- Grupo auditoria: infra-audit
+- Policy Broker: <instalado|pendente|nao_aplicavel>
 - Sudo temporario de bootstrap: <nao_aplicavel|removido|justificado>
 
 ## Recursos

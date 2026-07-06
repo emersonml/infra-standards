@@ -74,7 +74,9 @@
 
 [OK ] Define human operator and AI agent separation.
 [OK ] Define standard users `emerson`, `codex-infra` and `claude-infra`.
-[OK ] Define groups `infra-admin` and `_ssh`.
+[OK ] Define initial groups `infra-admin` and `_ssh`.
+[OK ] Supersede broad agent privilege with `_ssh`, `infra-collab`,
+      `infra-architect`, `infra-engineer`, `infra-audit` and Policy Broker.
 [OK ] Define agent governance and repeated-attempt policy.
 
 ## Bootstrap and Reports

@@ -27,7 +27,7 @@ Definir requisitos minimos de seguranca operacional.
 - Nenhum privilegio permanente deve existir apenas por conveniencia.
 - Privilegios temporarios devem ser revogados ao final da tarefa.
 
-## Just-In-Time Privilege
+## Role-Based Just-In-Time Privilege
 
 Classificacao:
 
@@ -39,21 +39,22 @@ Classificacao:
 Regra:
 
 ```text
-Emerson autoriza > Codex prepara privilegios > Codex revoga privilegios
-temporarios > Claude executa > Codex valida
+Emerson autoriza > Policy Broker materializa privilegios > Codex prepara >
+Codex revoga privilegios temporarios > Claude executa > Codex valida
 ```
 
 Regras:
 
 - Codex pode receber acesso administrativo temporario apenas com autorizacao
   explicita de Emerson;
-- Codex deve preparar diretorios, ownership, grupos, ACLs e sudoers quando
-  necessario;
+- Codex deve preparar diretorios, ownership, grupos, ACLs e politicas por meio
+  do Policy Broker quando necessario;
 - Codex deve remover seus proprios privilegios temporarios antes de delegar a
   execucao ao Claude;
 - Claude deve executar somente com permissoes previamente preparadas;
 - Claude nao deve alterar sudoers, grupos administrativos ou seus proprios
   privilegios;
+- agentes nao devem editar `/etc/sudoers` ou `/etc/sudoers.d` diretamente;
 - o estado final deve retornar ao minimo de privilegios necessario.
 
 Documento de referencia:
@@ -78,16 +79,23 @@ Usuarios padrao:
 Grupos padrao:
 
 - `_ssh`: login SSH.
-- `infra-admin`: autorizacao administrativa.
+- `infra-collab`: colaboracao em projetos, documentacao e arquivos
+  operacionais.
+- `infra-architect`: elegibilidade de arquitetura e preparacao.
+- `infra-engineer`: elegibilidade de engenharia e execucao.
+- `infra-audit`: leitura e revisao futura.
 
 Regras:
 
 - acesso humano e acesso de agentes devem ser separados;
 - agentes devem usar usuarios nominais proprios;
 - contas de agentes nao devem compartilhar chaves privadas com `emerson`;
+- grupos de papel indicam elegibilidade, nao privilegio administrativo direto;
+- `infra-admin` e legado e nao deve ser usado como novo padrao de autoridade;
 - sudo permanente para agentes exige justificativa documentada;
-- sudo temporario para bootstrap deve ser removido ou reduzido ao final;
-- alteracoes em SSH, sudo ou grupos exigem rollback documentado.
+- sudo temporario para bootstrap deve ser substituido por Policy Broker,
+  removido ou reduzido ao final;
+- alteracoes em SSH, sudo ou grupos exigem rollback documentado;
 - Codex e o controlador de privilegios durante janelas Just-In-Time aprovadas;
 - Claude e o executor tecnico e nao deve ampliar seus proprios privilegios.
 

@@ -140,12 +140,12 @@ Esta secao e um indice. Para detalhes, consultar o documento de referencia.
 Objetivo:
 
 - definir identidades humanas, identidades de agentes, grupos e modelo de
-  acesso administrativo.
+  acesso administrativo baseado em papeis funcionais.
 
 Responsabilidade:
 
-- orientar usuarios, grupos, agentes, ownership, permissoes e revisoes de
-  acesso.
+- orientar usuarios, grupos, agentes, ownership, permissoes, papeis funcionais
+  e revisoes de acesso.
 
 Documento de referencia:
 
@@ -194,18 +194,20 @@ Documento de referencia:
 Objetivo:
 
 - definir Least Privilege, Just-In-Time Privilege e a separacao entre Codex
-  como controlador de privilegios e Claude como executor tecnico.
+  como controlador de governanca e Claude como executor tecnico.
 
 Responsabilidade:
 
-- orientar concessao temporaria de privilegios, revogacao, preparacao de
-  ambiente, delegacao de execucao e validacao de seguranca.
+- orientar RBAC funcional, Policy Broker, concessao temporaria de privilegios,
+  revogacao, preparacao de ambiente, delegacao de execucao e validacao de
+  seguranca.
 
 Documento de referencia:
 
 ```text
 /home/emerson/platform/infra-standards/standards/PRIVILEGE_GOVERNANCE_STANDARD.md
 /home/emerson/platform/infra-standards/decision-records/0014-ai-agent-jit-privilege-model.md
+/home/emerson/platform/infra-standards/decision-records/0015-role-based-agent-privilege-model.md
 ```
 
 ### Network Standard
@@ -233,14 +235,20 @@ Objetivo:
 
 Responsabilidade:
 
-- hospedar scripts, modelos, sudoers versionados, validadores e automacoes que
-  seguem padroes aprovados.
+- hospedar scripts, modelos, Policy Broker, sudoers versionados quando
+  inevitaveis, validadores e automacoes que seguem padroes aprovados.
 
 Documento de referencia:
 
 ```text
 /home/emerson/platform/infra-runtime/README.md
 /home/emerson/platform/infra-runtime/sudoers/README.md
+```
+
+Implementacao futura prevista:
+
+```text
+/home/emerson/platform/infra-runtime/infra-policy/
 ```
 
 ### Documentation Standard

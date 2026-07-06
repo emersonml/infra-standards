@@ -103,6 +103,7 @@ decision-records/
   0012-platform-workspace-vs-operational-workspace.md
   0013-reports-and-live-docs-promotion-policy.md
   0014-ai-agent-jit-privilege-model.md
+  0015-role-based-agent-privilege-model.md
 
 requests/
   README.md
@@ -279,10 +280,17 @@ migracoes se conectam.
 - O arquivo principal `sshd_config` nao deve concentrar customizacoes futuras.
 - Acesso administrativo separa operador humano e agentes IA.
 - Usuarios padrao: `emerson`, `codex-infra` e `claude-infra`.
-- Grupos padrao: `infra-admin` para administracao e `_ssh` para login SSH.
+- Grupos padrao separam login, colaboracao, arquitetura, engenharia e
+  auditoria.
+- `_ssh` permite login SSH.
+- `infra-collab` representa colaboracao, nao autoridade administrativa.
+- `infra-architect`, `infra-engineer` e `infra-audit` representam papeis
+  funcionais.
+- `infra-admin` e legado e nao deve ser usado como novo padrao de autoridade.
 - Acesso remoto deve preferir Bastion e ProxyJump quando houver segmentacao.
 - Bootstrap institucional pode usar sudo temporario, removido ao final.
 - Codex e controlador temporario de privilegios em janelas autorizadas.
 - Claude executa apenas com permissoes previamente preparadas.
 - Least Privilege e Just-In-Time Privilege sao principios oficiais.
+- Policy Broker e a camada oficial para materializar privilegios temporarios.
 - Relatorios operacionais ficam separados da documentacao oficial.

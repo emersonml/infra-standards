@@ -8,6 +8,10 @@ Status:
 
 Accepted
 
+Refined by:
+
+- `0015-role-based-agent-privilege-model`
+
 Date:
 
 2026-06-30

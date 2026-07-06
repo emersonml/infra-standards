@@ -27,6 +27,9 @@ must be reasoned about, changed, documented and governed.
 - Codex prepares and governs privileges; Claude executes within prepared
   boundaries.
 - Least Privilege and Just-In-Time Privilege are default security principles.
+- Permissions belong to platform functions and roles, not directly to users.
+- Collaboration is not administrative authority.
+- Temporary privilege must be materialized by approved policy, not convenience.
 
 ## Engineering Principles
 
@@ -62,6 +65,8 @@ must be reasoned about, changed, documented and governed.
 - Hardening must be tested in controlled scope.
 - Hardening must not silently break SSH, SCP, RSYNC, SFTP, automation, backup or recovery.
 - SSH login and administrative privilege must be controlled separately.
+- Functional role membership and administrative privilege must be controlled
+  separately.
 - Bastion and ProxyJump must preserve nominal identity and auditability.
 - Secrets must not be stored in documentation.
 - Private keys must not be committed.
@@ -79,6 +84,8 @@ must be reasoned about, changed, documented and governed.
 - Automation must follow the same evidence and rollback rules as manual work.
 - AI agents must stop and ask before repeated failed attempts on the same task.
 - Privilege automation must be idempotent, auditable and reversible.
+- Policy automation must fail closed when authorization, scope or validation is
+  inconsistent.
 
 ## Operational Principles
 
@@ -94,6 +101,7 @@ must be reasoned about, changed, documented and governed.
 - Temporary sudo is allowed for bootstrap only when documented and removed or reduced after use.
 - Codex may receive temporary administrative privilege to prepare an approved
   task, but must reduce its own privilege surface before delegating execution.
+- Agents must not edit sudoers directly when a Policy Broker flow exists.
 
 ## Decision Principles
 

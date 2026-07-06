@@ -27,8 +27,11 @@ AI agent users:
 
 Standard groups:
 
-- `infra-admin`
 - `_ssh`
+- `infra-collab`
+- `infra-architect`
+- `infra-engineer`
+- `infra-audit`
 
 ## Official Responsibility Chain
 
@@ -64,6 +67,7 @@ Rules:
 - AI agents must not change scripts, bootstrap or automation when the task is
   documentation-only.
 - Codex controls privilege preparation during approved Just-In-Time windows.
+- Codex must use the Policy Broker for temporary privilege materialization.
 - Claude must not expand its own privileges or alter sudoers by initiative.
 
 ## Access Model
@@ -72,10 +76,15 @@ Rules:
 
 - each AI agent uses a nominal user;
 - `_ssh` controls SSH login;
-- `infra-admin` identifies administrative authorization;
-- sudo for agents must be documented;
-- temporary sudo for bootstrap must be removed, reduced or justified after use;
-- private keys must not be shared between human and agent users.
+- `infra-collab` controls collaborative ownership and operational files;
+- `infra-architect` identifies Codex eligibility for preparation work;
+- `infra-engineer` identifies Claude eligibility for execution work;
+- `infra-audit` is reserved for future read-only review;
+- `infra-admin` is legacy and must not be used as the new authority model;
+- sudo for agents must be brokered, scoped and documented;
+- temporary sudo for bootstrap must be replaced by Policy Broker flows,
+  removed, reduced or justified after use;
+- private keys must not be shared between human and agent users;
 - permanent sudo for agents must not exist for convenience;
 - privilege grants for agents must follow the Least Privilege and Just-In-Time
   Privilege model.
@@ -92,7 +101,7 @@ Codex is the platform privilege controller for approved preparation work.
 
 Responsibilities:
 
-- prepare directories, ownership, groups, ACLs and sudo policies;
+- prepare directories, ownership, groups, ACLs and brokered privilege policy;
 - validate security before delegating execution;
 - document permissions granted to Claude;
 - revoke its own temporary privileges after preparation;
@@ -100,6 +109,7 @@ Responsibilities:
   Claude.
 
 Codex must not remain a permanent administrator for convenience.
+Codex must not edit `/etc/sudoers` or `/etc/sudoers.d` directly.
 
 ## Claude Execution Role
 
@@ -116,7 +126,9 @@ Rules:
 
 - Claude must use only permissions prepared by Codex;
 - Claude must stop when a task requires privileges not granted;
-- Claude must not alter sudoers, groups or its own administrative authority.
+- Claude must not alter sudoers, groups or its own administrative authority;
+- Claude must not call privilege broker actions that grant privileges to itself
+  unless that action was explicitly prepared and authorized by Codex.
 
 ## Operating Flow
 
@@ -133,10 +145,10 @@ Rules:
 - prefer standards and templates already present in `infra-standards`;
 - update local VM documentation when operational state changes;
 - update `infra-standards` only when a reusable rule or permanent decision
-  changes.
+  changes;
 - when privileges are required, run the additional flow:
-  `Authorization > Codex preparation > Codex revocation > Claude execution >
-  Codex review`.
+  `Authorization > Policy Broker > Codex preparation > Codex revocation >
+  Claude execution > Broker revocation > Codex review`.
 
 ## Repeated Attempt Policy
 

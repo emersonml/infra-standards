@@ -140,17 +140,24 @@ Usuarios padrao:
 
 Grupos padrao:
 
-- `infra-admin`;
-- `_ssh`.
+- `_ssh`;
+- `infra-collab`;
+- `infra-architect`;
+- `infra-engineer`;
+- `infra-audit`.
 
 Regras:
 
 - `emerson` representa o operador humano;
 - `codex-infra` e `claude-infra` representam agentes IA;
 - `_ssh` controla login SSH;
-- `infra-admin` controla administracao;
-- sudo temporario de bootstrap deve ser removido ou reduzido depois da
-  validacao.
+- `infra-collab` controla colaboracao em projetos e arquivos operacionais;
+- `infra-architect` representa o papel funcional do Codex;
+- `infra-engineer` representa o papel funcional do Claude;
+- `infra-audit` e reservado para revisao futura somente leitura;
+- `infra-admin` e legado e nao deve ser usado como novo padrao de autoridade;
+- sudo temporario de bootstrap deve ser mediado por Policy Broker, removido ou
+  reduzido depois da validacao.
 
 ## Bootstrap institucional
 
@@ -212,7 +219,7 @@ VM:
 Novas VMs devem seguir o modelo oficial:
 
 ```text
-Emerson autoriza > Codex prepara > Codex revoga > Claude executa
+Emerson autoriza > Policy Broker > Codex prepara > Codex revoga > Claude executa
 ```
 
 Regras:
@@ -220,8 +227,12 @@ Regras:
 - `codex-infra` nao deve manter sudo permanente por conveniencia;
 - `claude-infra` nao deve poder alterar sudoers ou ampliar seus proprios
   privilegios;
-- permissoes operacionais devem ser concedidas por grupo, ACL ou sudoers
-  limitado, conforme a tarefa;
+- permissoes operacionais devem ser concedidas por grupo funcional, ACL ou
+  sudo limitado pelo Policy Broker, conforme a tarefa;
+- `infra-collab` deve substituir `infra-admin` quando a finalidade for
+  ownership colaborativo;
+- `infra-admin` so deve permanecer em ambientes historicos com justificativa
+  ate migracao;
 - excecoes devem ser documentadas em `HOST.md`, `.docs/DECISIONS.md` e
   relatorio operacional quando aplicavel.
 

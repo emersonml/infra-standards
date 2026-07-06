@@ -9,9 +9,11 @@ Este padrao formaliza:
 
 - principio de menor privilegio;
 - privilegio Just-In-Time;
-- Codex como controlador temporario de privilegios;
-- Claude como executor tecnico sem autoelevacao;
-- separacao entre preparacao, execucao, validacao e revogacao.
+- permissoes associadas a funcoes da plataforma, nao a usuarios individuais;
+- separacao entre colaboracao, arquitetura, engenharia, auditoria e autoridade;
+- Policy Broker como camada oficial para materializar privilegios temporarios;
+- Codex como controlador de governanca e preparacao;
+- Claude como executor tecnico sem autoelevacao.
 
 ## Classificacao
 
@@ -56,10 +58,87 @@ Regras:
 - privilegios permanentes nao devem existir por conveniencia;
 - acesso SSH nao implica permissao administrativa;
 - pertencer a `_ssh` permite login SSH, nao administracao;
-- pertencer a `infra-admin` indica elegibilidade administrativa, nao
-  necessariamente sudo amplo;
-- sudo permanente para agentes exige justificativa documentada;
+- colaboracao em arquivos nao implica autoridade administrativa;
+- grupos de papel indicam elegibilidade funcional, nao sudo amplo;
 - permissoes temporarias devem ser revogadas ao fim da tarefa.
+
+## Modelo de papeis funcionais
+
+Permissoes pertencem as funcoes da plataforma. Usuarios apenas ocupam papeis.
+
+Grupos oficiais:
+
+| Grupo | Finalidade | Autoridade administrativa |
+| --- | --- | --- |
+| `_ssh` | Login SSH | Nao |
+| `infra-collab` | Ownership colaborativo, documentacao, projetos e arquivos operacionais | Nao |
+| `infra-architect` | Elegibilidade do Codex para arquitetura, preparacao, ACLs, bootstrap e governanca | Nao diretamente |
+| `infra-engineer` | Elegibilidade do Claude para execucao tecnica, Docker, Compose, instalacoes, migracoes e operacao | Nao diretamente |
+| `infra-audit` | Leitura e revisao futura de arquitetura, seguranca, documentacao e permissoes | Nao |
+| `infra-admin` | Legado historico | Nao usar como novo padrao de autoridade |
+
+Regras:
+
+- `infra-collab` substitui o uso semantico de `infra-admin` para colaboracao.
+- `infra-admin` nao deve ser usado como grupo padrao de autoridade em novas
+  VMs.
+- ambientes historicos podem manter `infra-admin` temporariamente ate migracao
+  documentada.
+- nenhum grupo de papel concede sudo irrestrito por si so.
+- privilegio administrativo so pode ser materializado por politica aprovada.
+
+## Policy Broker
+
+O Policy Broker e a camada oficial que materializa privilegios temporarios.
+
+Responsabilidades:
+
+- receber uma solicitacao aprovada por Emerson;
+- validar usuario, papel, alvo, escopo, TTL e politica permitida;
+- aplicar somente acoes previstas em manifestos oficiais;
+- conceder ACLs, permissoes operacionais ou sudo limitado quando necessario;
+- registrar auditoria antes, durante e depois;
+- revogar privilegios temporarios;
+- falhar fechado quando houver inconsistencia.
+
+Regras:
+
+- agentes nao editam diretamente `/etc/sudoers`;
+- agentes nao editam diretamente `/etc/sudoers.d`;
+- Codex usa o Policy Broker para preparar o ambiente;
+- Claude usa apenas permissoes preparadas;
+- Claude nunca amplia seus proprios privilegios;
+- scripts soltos `grant-*` nao devem existir sem mediacao do Policy Broker;
+- artefatos executaveis do broker pertencem ao `infra-runtime`;
+- este documento define o contrato, nao a implementacao executavel.
+
+Local futuro recomendado:
+
+```text
+/usr/local/sbin/infra-policy
+/etc/infra-policy/policies.d/
+/var/lib/infra-policy/
+/var/log/infra-policy/
+```
+
+Artefatos versionados futuros:
+
+```text
+infra-runtime/
+  infra-policy/
+    bin/
+      infra-policy
+    policies/
+      codex-prepare-directory.yml
+      codex-prepare-docker-project.yml
+      claude-run-compose.yml
+      claude-service-maintenance.yml
+    manifests/
+      TASK_MANIFEST_TEMPLATE.yml
+    validators/
+      validate-policy
+      validate-state
+```
 
 ## Modelo Just-In-Time Privilege
 
@@ -67,18 +146,20 @@ Fluxo oficial:
 
 ```text
 1. Emerson autoriza.
-2. Codex recebe acesso administrativo temporario.
-3. Codex prepara completamente o ambiente.
-4. Codex remove seus proprios privilegios temporarios.
-5. Codex documenta as permissoes concedidas ao Claude.
-6. Claude executa a tarefa tecnica.
-7. Codex revisa, valida seguranca e consolida documentacao.
-8. O ambiente retorna ao estado minimo de privilegios.
+2. Codex solicita ao Policy Broker uma janela temporaria de preparacao.
+3. O Policy Broker materializa somente as permissoes aprovadas.
+4. Codex prepara ambiente, diretorios, ownership, grupos, ACLs e politicas.
+5. Codex revoga seus proprios privilegios temporarios via Policy Broker.
+6. Codex documenta as permissoes concedidas ao Claude.
+7. Claude executa a tarefa tecnica dentro do escopo preparado.
+8. O Policy Broker revoga permissoes temporarias do Claude.
+9. Codex revisa, valida seguranca e consolida documentacao.
+10. O ambiente retorna ao estado minimo de privilegios.
 ```
 
 ## Responsabilidades do Codex
 
-Codex atua como controlador de privilegios da plataforma.
+Codex atua como controlador de governanca e preparacao.
 
 Responsabilidades:
 
@@ -86,12 +167,10 @@ Responsabilidades:
 - revisar arquitetura;
 - definir padroes;
 - preparar o ambiente;
-- criar diretorios aprovados;
 - definir ownership;
-- definir grupos;
+- definir grupos funcionais;
 - definir ACLs;
-- criar politicas sudo quando necessario;
-- preparar o ambiente para execucao;
+- solicitar privilegios temporarios ao Policy Broker;
 - validar seguranca;
 - revogar seus proprios privilegios temporarios;
 - documentar permissoes concedidas;
@@ -102,6 +181,7 @@ Restricoes:
 - Codex nao deve executar instalacoes de servicos quando isso puder ser
   delegado ao Claude;
 - Codex nao deve manter sudo permanente por conveniencia;
+- Codex nao deve editar `/etc/sudoers` ou `/etc/sudoers.d` diretamente;
 - Codex nao deve ampliar escopo sem autorizacao de Emerson;
 - Codex nao deve deixar privilegios temporarios sem revogacao ou justificativa.
 
@@ -122,7 +202,7 @@ Restricoes:
 
 - Claude deve usar somente permissoes previamente preparadas pelo Codex;
 - Claude nunca deve ampliar seus proprios privilegios;
-- Claude nunca deve alterar sudoers por iniciativa propria;
+- Claude nunca deve alterar sudoers;
 - Claude nunca deve adicionar usuarios a grupos administrativos;
 - Claude deve parar se uma acao exigir permissao nao concedida;
 - Claude deve registrar evidencias de execucao para revisao do Codex.
@@ -133,8 +213,8 @@ Estado recomendado apos encerramento de uma tarefa:
 
 ```text
 emerson       autoridade humana
-codex-infra   SSH permitido, sem sudo permanente
-claude-infra  SSH permitido, permissoes operacionais minimas
+codex-infra   _ssh, infra-collab, infra-architect; sem sudo permanente
+claude-infra  _ssh, infra-collab, infra-engineer; permissoes operacionais minimas
 ```
 
 Regras:
@@ -149,13 +229,13 @@ Antes da execucao por Claude, Codex deve preparar:
 
 - diretorios;
 - ownership;
-- grupos;
+- grupos funcionais;
 - ACLs;
-- secrets paths sem conteudo exposto;
-- sudoers temporarios ou limitados, quando necessario;
+- paths de secrets sem conteudo exposto;
+- permissoes temporarias solicitadas ao Policy Broker quando necessario;
 - validacoes de seguranca;
 - rollback de permissoes;
-- manifest de permissoes concedidas.
+- manifesto de permissoes concedidas.
 
 ## Manifesto de privilegios
 
@@ -167,96 +247,85 @@ Modelo conceitual:
 work_id: YYYY-MM-DD-descricao
 target_vm: vmid-hostname
 authorized_by: emerson
-codex_jit: true
-claude_execution: true
+policy_broker: true
+codex_role: infra-architect
+claude_role: infra-engineer
+ttl: 2h
 directories:
   - path: /opt/projects/exemplo
     owner: claude-infra
-    group: infra-admin
+    group: infra-collab
 acl:
   - path: /mnt/nfs/docker/volumes/exemplo
     principal: claude-infra
     permissions: rwx
-sudo_for_codex:
-  temporary: true
-  revoke_after_prepare: true
-sudo_for_claude:
-  required: false
+broker_actions:
+  - codex-prepare-docker-project
+  - claude-run-compose
 validation:
-  - sudo -n -l
+  - id codex-infra
+  - id claude-infra
   - stat paths
   - getfacl paths
 ```
 
 O manifesto nao deve conter senhas, tokens ou chaves privadas.
 
-## Automacao recomendada
+## Estrategia de sudo
 
-Artefatos executaveis devem residir em `infra-runtime`, nao em
-`infra-standards`.
-
-Arquitetura proposta:
-
-```text
-infra-runtime/
-  platform-jit-privilege/
-    bin/
-      jit-grant-codex
-      jit-prepare-task
-      jit-revoke-codex
-      jit-audit
-      jit-validate
-    templates/
-      sudoers-codex-jit.template
-      sudoers-claude-task.template
-      acl-policy.template
-    plans/
-      PLAN_TEMPLATE.yml
-```
-
-Nos hosts ou VMs, a automacao pode materializar:
-
-```text
-/usr/local/sbin/platform-jit-grant
-/usr/local/sbin/platform-jit-revoke
-/usr/local/sbin/platform-jit-audit
-/etc/sudoers.d/90-platform-jit-codex
-/etc/sudoers.d/91-platform-task-claude
-/var/lib/platform-jit/
-```
-
-Requisitos da automacao:
-
-- ser idempotente;
-- validar pre-requisitos antes de alterar estado;
-- executar `visudo -cf` antes de instalar sudoers;
-- registrar arquivos criados;
-- registrar permissoes antes e depois;
-- possuir rollback;
-- revogar privilegios temporarios ao final;
-- nao expor secrets em logs;
-- falhar fechado quando houver inconsistencia.
-
-## Sudoers temporario
-
-Quando necessario, sudo para Codex deve ser temporario e limitado.
+Sudo nao e a interface primaria de governanca dos agentes.
 
 Regras:
 
-- arquivo temporario deve ficar em `/etc/sudoers.d/`;
-- nome deve indicar JIT e tarefa;
-- permissao deve ser `0440`;
-- validacao obrigatoria com `visudo -cf`;
-- revogacao deve ser parte do plano;
-- ausencia de revogacao e falha operacional.
+- quando inevitavel, sudo para agentes deve ser limitado ao comando do Policy
+  Broker ou a acoes explicitamente aprovadas;
+- sudo amplo permanente para agentes e proibido por padrao;
+- Codex nao escreve regras de sudo diretamente;
+- Claude nao escreve regras de sudo diretamente;
+- templates sudoers versionados podem existir em `infra-runtime`, mas devem
+  ser instalados apenas por fluxo aprovado e validado;
+- `visudo -cf` e obrigatorio para qualquer politica que materialize sudoers;
+- regras transicionais baseadas em sudoers temporario devem migrar para o
+  Policy Broker.
 
-Claude nao deve receber permissao para:
+## Estrategia de ACL
 
-- editar `/etc/sudoers`;
-- editar `/etc/sudoers.d`;
-- modificar grupos administrativos;
-- conceder privilegio a si mesmo;
-- alterar SSH sem plano aprovado.
+ACL deve ser preferida a sudo sempre que resolver o problema com menor risco.
+
+Regras:
+
+- ACL deve ser limitada por path;
+- ACL deve ser limitada por usuario ou grupo funcional;
+- ACL temporaria deve possuir TTL ou revogacao planejada;
+- ACL permanente exige justificativa operacional;
+- ACL aplicada para Claude deve ser documentada antes da execucao;
+- ACL residual deve ser validada por Codex ao final da tarefa.
+
+## Estrategia SSH
+
+SSH autentica identidade. SSH nao concede autoridade administrativa.
+
+Regras:
+
+- `_ssh` permite login;
+- chaves privadas nao devem ser compartilhadas entre agentes;
+- aliases SSH devem usar identidade explicita quando houver mais de uma chave;
+- acesso via Bastion deve preservar usuario nominal;
+- acesso SSH de agente nao implica sudo, Docker, ACL ou permissao de escrita.
+
+## Inclusao futura de agentes
+
+Novos agentes devem receber:
+
+- usuario nominal proprio;
+- chave SSH propria;
+- grupo de papel funcional;
+- permissao minima;
+- politica de broker especifica;
+- escopo documentado;
+- auditoria de execucao.
+
+Nenhum novo agente deve herdar permissoes de Codex ou Claude por conveniencia.
 
 ## Validacao obrigatoria
 
@@ -265,11 +334,10 @@ Antes de delegar ao Claude, Codex deve validar:
 ```text
 id codex-infra
 id claude-infra
-sudo -n -l
 stat <paths>
 getfacl <paths>
 docker access quando aplicavel
-visudo -cf <sudoers temporario>
+infra-policy audit quando disponivel
 ```
 
 Apos a execucao, Codex deve validar:
@@ -288,9 +356,9 @@ Toda tarefa com privilegio temporario deve registrar:
 - autorizacao de Emerson;
 - objetivo;
 - escopo;
-- privilegios concedidos ao Codex;
-- privilegios concedidos ao Claude;
-- arquivos sudoers criados;
+- papel funcional usado por Codex;
+- papel funcional usado por Claude;
+- acoes do Policy Broker;
 - ACLs aplicadas;
 - diretorios e ownership;
 - momento de revogacao;
@@ -311,3 +379,4 @@ Documentos de destino:
 - `standards/SSH_STANDARD.md`
 - `standards/VM_STANDARD.md`
 - `decision-records/0014-ai-agent-jit-privilege-model.md`
+- `decision-records/0015-role-based-agent-privilege-model.md`

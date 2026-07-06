@@ -346,7 +346,8 @@ Finalidade:
 
 - scripts;
 - modelos operacionais;
-- sudoers versionados;
+- Policy Broker e politicas versionadas;
+- sudoers versionados quando inevitaveis;
 - automacoes;
 - procedimentos tecnicos reutilizaveis.
 
@@ -563,4 +564,3 @@ Esta ADR nao deve ser criada nesta atividade.
 5. Validar repositorios.
 6. Registrar causa do rollback.
 7. Reabrir plano de migracao corrigido.
-
