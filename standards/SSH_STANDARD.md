@@ -126,15 +126,105 @@ Quando houver Bastion aprovado, o acesso deve usar ProxyJump.
 Formato:
 
 ```text
-ssh -J <usuario>@<bastion>:22123 -p 22123 <usuario>@<ip-alvo>
+ssh -J <usuario>@<bastion>:<porta-bastion> -p 22123 <usuario>@<ip-alvo>
 ```
 
 Regras:
 
 - preservar usuario nominal no Bastion e no destino;
 - evitar chaves compartilhadas entre humanos e agentes;
+- usar `ProxyJump` em vez de entrar manualmente no Bastion e iniciar um novo
+  `ssh` a partir dele;
+- manter `ForwardAgent no` como padrao em configuracoes de cliente SSH;
+- permitir `ForwardAgent yes` apenas por excecao documentada;
+- declarar `IdentityFile` explicitamente para cada host institucional;
+- usar `IdentitiesOnly yes` para evitar tentativas com chaves nao planejadas e
+  erros de `Too many authentication failures`;
 - documentar excecoes de acesso direto no `NETWORK.md` da VM;
 - validar `ssh`, `scp` e `rsync` pelo caminho aprovado.
+
+## Padrao de cliente SSH
+
+Classificacao:
+
+- Seguranca
+- Padrao
+- Procedimento
+
+O cliente SSH deve negar agent forwarding por padrao.
+
+Configuracao global recomendada para clientes SSH da plataforma:
+
+```sshconfig
+# /etc/ssh/ssh_config.d/00-platform-defaults.conf
+
+Host *
+    ForwardAgent no
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+    HashKnownHosts yes
+    IdentitiesOnly yes
+```
+
+Configuracao recomendada no `~/.ssh/config` de operadores e agentes:
+
+```sshconfig
+Host *
+    ForwardAgent no
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+    HashKnownHosts yes
+    IdentitiesOnly yes
+
+Host bastion
+    HostName <ip-bastion>
+    User <usuario-bastion>
+    Port <porta-bastion>
+    IdentityFile ~/.ssh/<chave-aprovada>
+    IdentitiesOnly yes
+    ForwardAgent no
+
+Host <vm-alvo>
+    HostName <ip-vm>
+    User <usuario-nominal>
+    Port 22123
+    IdentityFile ~/.ssh/<chave-aprovada>
+    IdentitiesOnly yes
+    ProxyJump bastion
+    ForwardAgent no
+```
+
+Significado:
+
+- `ForwardAgent no`: nao encaminha o agente SSH do cliente para o servidor;
+- `IdentityFile`: define explicitamente qual chave deve ser usada;
+- `IdentitiesOnly yes`: impede que o cliente tente chaves extras do agente;
+- `ProxyJump`: usa o Bastion como salto controlado sem expor o agente ao
+  Bastion;
+- `LocalForward`: pode ser usado junto com `ForwardAgent no`, pois tunelamento
+  de porta e encaminhamento de agente sao recursos diferentes.
+
+Excecoes:
+
+- `ForwardAgent yes` exige justificativa operacional documentada;
+- hosts que dependam de agent forwarding devem ser revisados e migrados para
+  `ProxyJump` ou chave nominal explicita quando possivel;
+- se `AllowTcpForwarding no` estiver ativo no servidor, `LocalForward` nao
+  funcionara sem excecao documentada no `sshd_config`.
+
+Validacao do cliente:
+
+```text
+ssh -G <host> | grep -Ei 'forwardagent|identityfile|proxyjump|user|hostname|port'
+```
+
+Resultado esperado:
+
+```text
+forwardagent no
+identityfile ~/.ssh/<chave-aprovada>
+proxyjump <bastion>
+```
 
 ## Configuracoes que nao devem ser usadas globalmente
 

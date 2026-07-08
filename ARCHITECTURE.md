@@ -133,6 +133,74 @@ Rules:
 - Claude must not alter sudoers, groups or its own privilege level.
 - Collaboration must use `infra-collab`, not administrative authority.
 
+## Application Access Architecture
+
+Classification:
+
+- Arquitetura
+- Governanca
+- Padrao
+- Seguranca
+
+Application access is separate from operating system access.
+
+Standard application Web administrator:
+
+```text
+root-admin
+```
+
+Rules:
+
+- `root-admin` is the primary administrator for application Web panels.
+- `root-admin` is not Linux `root`, database root, SSH access or hypervisor
+  access.
+- personal names should not be used for new primary Web panel administrators.
+- integration tokens should use dedicated service identities when available.
+- existing historical environments must not be rewritten without an approved
+  operational remediation plan.
+
+Reference:
+
+```text
+standards/APPLICATION_ACCESS_STANDARD.md
+decision-records/0016-application-primary-admin-identity.md
+```
+
+## Application Configuration Architecture
+
+Classification:
+
+- Arquitetura
+- Governanca
+- Padrao
+- Operacao
+
+Applications should be initialized with explicit regional defaults instead of
+relying on upstream image or application defaults.
+
+Standard regional defaults for Brazilian operations:
+
+```text
+language = pt_BR
+locale = pt_BR
+phone region = BR
+timezone = America/Maceio
+```
+
+Rules:
+
+- new applications must set these values when supported;
+- existing user preferences must not be changed without approval;
+- client-specific exceptions must be documented.
+
+Reference:
+
+```text
+standards/APPLICATION_CONFIGURATION_STANDARD.md
+decision-records/0017-application-regional-defaults.md
+```
+
 ## Privilege Governance Architecture
 
 Classification:

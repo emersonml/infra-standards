@@ -56,6 +56,7 @@ Aliases obrigatorios para VMs de Servico:
 alias ll='ls -la'
 alias ppp='cd /opt/projects'
 alias vvv='cd /mnt/nfs/docker/volumes'
+alias ..='cd ..'
 ```
 
 - Estado dos aliases no `.bashrc` do usuario `emerson`: <validado|pendente>

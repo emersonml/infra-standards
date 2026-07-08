@@ -77,6 +77,8 @@ standards/
   VM_STANDARD.md
   SECURITY_STANDARD.md
   BACKUP_STANDARD.md
+  APPLICATION_ACCESS_STANDARD.md
+  APPLICATION_CONFIGURATION_STANDARD.md
   NETWORK_STANDARD.md
 
 templates/
@@ -104,6 +106,9 @@ decision-records/
   0013-reports-and-live-docs-promotion-policy.md
   0014-ai-agent-jit-privilege-model.md
   0015-role-based-agent-privilege-model.md
+  0016-application-primary-admin-identity.md
+  0017-application-regional-defaults.md
+  0018-ssh-client-forward-agent-policy.md
 
 requests/
   README.md

@@ -41,7 +41,7 @@ Operator or Agent > Bastion > Target VM
 Comando de referencia:
 
 ```text
-ssh -J <usuario>@<bastion>:22123 -p 22123 <usuario>@<ip-alvo>
+ssh -J <usuario>@<bastion>:<porta-bastion> -p 22123 <usuario>@<ip-alvo>
 ```
 
 Regras:

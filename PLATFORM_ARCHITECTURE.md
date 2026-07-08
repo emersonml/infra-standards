@@ -189,6 +189,55 @@ Documento de referencia:
 /home/emerson/platform/infra-standards/standards/SECURITY_STANDARD.md
 ```
 
+### Application Access Standard
+
+Objetivo:
+
+- definir a identidade administrativa primaria para aplicacoes com painel Web.
+
+Responsabilidade:
+
+- separar administracao de aplicacao de administracao Linux, SSH, banco de
+  dados, hypervisor e tokens de integracao.
+
+Regra principal:
+
+```text
+root-admin = administrador primario de painel Web de aplicacao
+```
+
+Documento de referencia:
+
+```text
+/home/emerson/platform/infra-standards/standards/APPLICATION_ACCESS_STANDARD.md
+/home/emerson/platform/infra-standards/decision-records/0016-application-primary-admin-identity.md
+```
+
+### Application Configuration Standard
+
+Objetivo:
+
+- definir configuracoes basicas de aplicacoes, como idioma, localidade, regiao
+  e timezone.
+
+Responsabilidade:
+
+- garantir que novas aplicacoes operadas no Brasil nascam com regionalizacao
+  coerente, salvo excecao documentada.
+
+Regra principal:
+
+```text
+pt_BR / BR / America/Maceio
+```
+
+Documento de referencia:
+
+```text
+/home/emerson/platform/infra-standards/standards/APPLICATION_CONFIGURATION_STANDARD.md
+/home/emerson/platform/infra-standards/decision-records/0017-application-regional-defaults.md
+```
+
 ### Privilege Governance Standard
 
 Objetivo:

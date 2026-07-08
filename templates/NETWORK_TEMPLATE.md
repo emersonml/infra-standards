@@ -27,7 +27,7 @@ ssh -p 22123 emerson@<ip>
 - ProxyJump:
 
 ```text
-ssh -J <usuario>@<bastion>:22123 -p 22123 <usuario>@<ip-alvo>
+ssh -J <usuario>@<bastion>:<porta-bastion> -p 22123 <usuario>@<ip-alvo>
 ```
 
 ## NFS

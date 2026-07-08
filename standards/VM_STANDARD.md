@@ -67,6 +67,7 @@ operacional `emerson`:
 alias ll='ls -la'
 alias ppp='cd /opt/projects'
 alias vvv='cd /mnt/nfs/docker/volumes'
+alias ..='cd ..'
 ```
 
 Finalidade:
@@ -74,6 +75,7 @@ Finalidade:
 - `ll`: listar arquivos com detalhes, incluindo arquivos ocultos;
 - `ppp`: acessar rapidamente o Operational Workspace da VM;
 - `vvv`: acessar rapidamente o diretorio padrao de volumes Docker persistentes.
+- `..`: retornar rapidamente ao diretorio pai.
 
 Regras:
 

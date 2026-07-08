@@ -90,6 +90,12 @@ nenhum projeto adicional em espera por nomenclatura historica
 - Codex como controlador de governanca e preparacao de privilegios da
   plataforma.
 - Claude como executor tecnico dentro de permissoes preparadas.
+- `root-admin` como identidade administrativa primaria padrao para novos
+  paineis Web de aplicacao.
+- `pt_BR`, `BR` e `America/Maceio` como regionalizacao padrao para novas
+  aplicacoes quando suportado.
+- `ForwardAgent no`, `IdentityFile` explicito, `IdentitiesOnly yes` e
+  `ProxyJump` como padrao de cliente SSH institucional.
 - Relatorios locais como area transitoria.
 - Promocao de relatorios oficiais para `infra-live-docs`.
 - Documentacao viva em `infra-live-docs`.
@@ -124,6 +130,8 @@ Operational Workspace:
 ## Standards Oficiais
 
 - `AI_AGENT_STANDARD.md`
+- `APPLICATION_ACCESS_STANDARD.md`
+- `APPLICATION_CONFIGURATION_STANDARD.md`
 - `BACKUP_STANDARD.md`
 - `DOCKER_STANDARD.md`
 - `DOCUMENTATION_STANDARD.md`
@@ -154,6 +162,9 @@ ADRs oficiais aprovadas:
 - `0013-reports-and-live-docs-promotion-policy`
 - `0014-ai-agent-jit-privilege-model`
 - `0015-role-based-agent-privilege-model`
+- `0016-application-primary-admin-identity`
+- `0017-application-regional-defaults`
+- `0018-ssh-client-forward-agent-policy`
 
 ADRs pendentes previstas:
 
@@ -192,6 +203,6 @@ Codex
 Motivo:
 
 ```text
-Registro do modelo RBAC funcional com Policy Broker para governanca de
-privilegios de agentes de IA.
+Registro dos padroes `root-admin`, regionalizacao de aplicacoes e politica de
+cliente SSH com `ForwardAgent no`.
 ```

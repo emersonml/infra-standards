@@ -99,6 +99,38 @@ Regras:
 - Codex e o controlador de privilegios durante janelas Just-In-Time aprovadas;
 - Claude e o executor tecnico e nao deve ampliar seus proprios privilegios.
 
+## Administracao de paineis Web
+
+Classificacao:
+
+- Governanca
+- Padrao
+- Seguranca
+
+Usuario padrao para novos paineis Web de aplicacao:
+
+```text
+root-admin
+```
+
+Regras:
+
+- `root-admin` e identidade administrativa de aplicacao, nao usuario Linux;
+- `root-admin` nao deve possuir acesso SSH por padrao;
+- `root-admin` nao deve ser usado como root de banco de dados;
+- `root-admin` nao deve ser usado como token de integracao quando houver conta
+  ou token dedicado;
+- `admin` generico e usuarios com nome pessoal devem ser evitados em novas
+  implantacoes;
+- ambientes historicos devem preservar evidencia real e so devem ser migrados
+  com plano aprovado.
+
+Documento de referencia:
+
+```text
+standards/APPLICATION_ACCESS_STANDARD.md
+```
+
 ## Politica de Bastion
 
 Classificacao:
