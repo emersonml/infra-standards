@@ -150,6 +150,60 @@ Rules:
   `Authorization > Policy Broker > Codex preparation > Codex revocation >
   Claude execution > Broker revocation > Codex review`.
 
+## Codex-Claude Bridge
+
+The official operational channel for Codex to coordinate Claude is the
+Codex-Claude Bridge.
+
+Purpose:
+
+- avoid using Emerson as a manual messenger between agents;
+- make prompts, responses, logs and execution status auditable;
+- prevent long-running Claude calls from leaving Codex without a result;
+- separate review and execution modes;
+- preserve the official chain `Emerson > Codex > Claude`.
+
+Standard location on the Claude VM:
+
+```text
+/home/emerson/platform/bin/claude-bridge-run
+/home/emerson/platform/bridge/claude/
+  inbox/
+  outbox/
+  logs/
+  archive/
+```
+
+Modes:
+
+| Mode | Purpose | Write access | Privilege escalation |
+| --- | --- | --- | --- |
+| `review` | Critical analysis, plan review and risk assessment | No | No |
+| `execute` | Approved technical execution inside prepared permissions | Yes, task-scoped | No sudo or self-escalation |
+
+Rules:
+
+- Codex must send Claude prompts through the bridge when agent-to-agent
+  coordination is required.
+- Claude must write relevant execution output, diagnostics and reports to the
+  bridge outbox, logs or the platform reports directory.
+- `review` mode must be used before execution when the task has operational,
+  security, data or availability risk.
+- `execute` mode must only be used after Emerson authorization and after Codex
+  prepares the required permissions.
+- The bridge must use timeouts and persist outputs under `outbox/` and `logs/`.
+- Claude must not use the bridge to grant privileges to itself.
+- The bridge is an orchestration mechanism, not a privilege mechanism.
+
+Report location for Platform Workspace tasks:
+
+```text
+/home/emerson/platform/reports/
+```
+
+The Codex-Claude Bridge is a transitional operational implementation until the
+full Policy Broker automation is implemented in `infra-runtime`.
+
 ## Repeated Attempt Policy
 
 An agent must stop and ask before continuing when:
